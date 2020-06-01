@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "pr-cotran-viagem-web"
+    }
+  },
+  "defaultProject": "pr-cotran-viagem-web",
+  "cli": {
+    "analytics": "72492a92-37fa-4f3a-84ed-0cf40dd7b819"
+  }
 }
