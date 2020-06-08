@@ -11,5 +11,21 @@ export class RhComponent implements OnInit {
 
   ngOnInit(): void {
   }
+salvarRh(){
+
+}
+editarRh(){
+
+}
+consultarRh(){
+
+}
+excluirRh(){
+
+}
+ListarRhs(){
+  
+}
+
 
 }

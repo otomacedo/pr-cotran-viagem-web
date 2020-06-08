@@ -1,0 +1,27 @@
+
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th scope="col">Código</th>
+      <th scope="col">Nome</th>
+      <th scope="col">Nome Guerra</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let funcionario of funcionarios">
+      <td>{{funcionario.idFuncionario}}
+      </td>
+      <td>{{ funcionario.nome }}</td>
+      <td>{{ funcionario.nomeGuerra }}</td>
+      <td>  
+        <button class=" btn btn-danger" (click)="excluirFuncionario(funcionario)">Excluir</button>&nbsp; 
+        <button class=" btn btn-primary" >Editar</button>&nbsp;
+        <button class=" btn btn-outline-primary" >Gerenciar</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <button class=" btn btn-primary" (click)="listarFuncionarios()">Listar</button>
+  &nbsp;
+  <a class="btn btn-primary" href="/cadastrarFuncionario" role="button">Cadastrar</a>
+  
