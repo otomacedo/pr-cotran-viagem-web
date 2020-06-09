@@ -55,4 +55,8 @@ export class ListarFuncionariosComponent implements OnInit {
     });
   }
 
+  voltar(){
+    return this.router.navigate(['/','inicio']);
+  }
+
 }
