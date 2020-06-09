@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { FuncionarioComponent } from './rh/funcionario/funcionario.component';
-import { ListarFuncionariosComponent } from './rh/funcionario/listar-funcionarios/listar-funcionarios.component';
-import { CadastrarFuncionarioComponent } from './rh/funcionario/cadastrar-funcionario/cadastrar-funcionario.component';
+import { ListarFuncionariosComponent } from './rh/components/funcionario/listar-funcionarios/listar-funcionarios.component';
+import { CadastrarFuncionarioComponent } from './rh/components/funcionario/cadastrar-funcionario/cadastrar-funcionario.component';
 import { HomeComponent } from './home/home.component';
 
 

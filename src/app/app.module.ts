@@ -5,23 +5,23 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RhComponent } from './rh/rh.component';
 import { ViagensComponent } from './viagens/viagens.component';
-import { FuncionarioComponent } from './rh/funcionario/funcionario.component';
-import { FeriasComponent } from './rh/ferias/ferias.component';
+import { FeriasComponent } from './rh/components/ferias/ferias.component';
 import { RhService } from './rh/rh.service';
 import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Interceptor } from './interceptor/interceptor.module';
-import { CadastrarFuncionarioComponent } from './rh/funcionario/cadastrar-funcionario/cadastrar-funcionario.component';
-import { ListarFuncionariosComponent } from './rh/funcionario/listar-funcionarios/listar-funcionarios.component';
+import { CadastrarFuncionarioComponent } from './rh/components/funcionario/cadastrar-funcionario/cadastrar-funcionario.component';
+import { ListarFuncionariosComponent } from './rh/components/funcionario/listar-funcionarios/listar-funcionarios.component';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
+import { StoreModule } from '@ngrx/store';
+import * as fromRh from 'src/app/rh/reducers/rh.reducer'
 
 @NgModule({
   declarations: [
     AppComponent,
     RhComponent,
     ViagensComponent,
-    FuncionarioComponent,
     FeriasComponent,
     CadastrarFuncionarioComponent,
     ListarFuncionariosComponent,
@@ -35,7 +35,9 @@ import { HomeComponent } from './home/home.component';
     Interceptor,
     BlockUIModule.forRoot(),
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    StoreModule.forRoot({}, {}),
+    StoreModule.forFeature('rh', fromRh.reducer)
   ],
   providers: [RhService],
   bootstrap: [AppComponent]

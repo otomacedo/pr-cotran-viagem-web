@@ -1,3 +1,5 @@
+import { Funcionario } from './funcionario.model';
+
 export class Rh{
     constructor(){
 
@@ -5,6 +7,7 @@ export class Rh{
     }
 
     idRh:number;
+    funcionario: Funcionario;
     orgaoOrigem: String;
     possePr: Date;
     matriculaSiape: String;
