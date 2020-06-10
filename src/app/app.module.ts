@@ -20,6 +20,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
  
 import { ToastrModule } from 'ngx-toastr';
 import { SharedService } from './Shared/shared.service';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,7 @@ import { SharedService } from './Shared/shared.service';
     StoreModule.forRoot({}, {}),
     StoreModule.forFeature('rh', fromRh.reducer)
   ],
-  providers: [RhService],
+  providers: [RhService, DatePipe],
   bootstrap: [AppComponent]
 }) 
 export class AppModule { }
