@@ -15,7 +15,11 @@ import { ListarFuncionariosComponent } from './rh/components/funcionario/listar-
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
 import { StoreModule } from '@ngrx/store';
-import * as fromRh from 'src/app/rh/reducers/rh.reducer'
+import * as fromRh from 'src/app/rh/reducers/rh.reducer';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+ 
+import { ToastrModule } from 'ngx-toastr';
+import { SharedService } from './Shared/shared.service';
 
 @NgModule({
   declarations: [
@@ -32,10 +36,13 @@ import * as fromRh from 'src/app/rh/reducers/rh.reducer'
     AppRoutingModule,
     HttpClientModule,
     NgbModule,
-    Interceptor,
     BlockUIModule.forRoot(),
+    Interceptor,
     FormsModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule,
+    SharedService,
+    ToastrModule.forRoot(),
     StoreModule.forRoot({}, {}),
     StoreModule.forFeature('rh', fromRh.reducer)
   ],
