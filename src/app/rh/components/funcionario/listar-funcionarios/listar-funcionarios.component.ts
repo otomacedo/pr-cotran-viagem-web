@@ -55,6 +55,10 @@ export class ListarFuncionariosComponent implements OnInit {
     });
   }
 
+  gerenciarFuncionario(){
+    
+  }
+
   voltar(){
     return this.router.navigate(['/','inicio']);
   }
