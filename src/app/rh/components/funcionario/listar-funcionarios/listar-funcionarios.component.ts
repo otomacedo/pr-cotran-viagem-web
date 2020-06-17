@@ -56,7 +56,7 @@ export class ListarFuncionariosComponent implements OnInit {
   }
 
   gerenciarFuncionario(){
-    
+    return this.router.navigate(['/','gerenciarFuncionario']);
   }
 
   voltar(){

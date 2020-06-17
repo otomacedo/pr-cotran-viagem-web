@@ -21,8 +21,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { SharedService } from './Shared/shared.service';
 import { DatePipe } from '@angular/common';
-import { GenrenciarFuncionarioComponent } from './rh/components/genrenciar-funcionario/genrenciar-funcionario.component';
-
+import { AdministracaoComponent } from './administracao/administracao.component';
+import { GerenciarFuncionarioComponent } from './rh/components/gerenciar-funcionario/gerenciar-funcionario.component';
+import { AtividadeComponent } from './administracao/components/atividade/atividade.component';
+import { DepartamentoComponent } from './administracao/components/departamento/departamento.component';
+import { SetorComponent } from './administracao/components/setor/setor.component';
+import { GraduacaoComponent } from './administracao/components/graduacao/graduacao.component';
+import { GratificacaoComponent } from './administracao/components/gratificacao/gratificacao.component';
+import { TipoGratificacaoComponent } from './administracao/components/tipo-gratificacao/tipo-gratificacao.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,7 +38,14 @@ import { GenrenciarFuncionarioComponent } from './rh/components/genrenciar-funci
     CadastrarFuncionarioComponent,
     ListarFuncionariosComponent,
     HomeComponent,
-    GenrenciarFuncionarioComponent
+    AdministracaoComponent,
+    GerenciarFuncionarioComponent,
+    AtividadeComponent,
+    DepartamentoComponent,
+    SetorComponent,
+    GraduacaoComponent,
+    GratificacaoComponent,
+    TipoGratificacaoComponent
   ],
   imports: [
     BrowserModule,
