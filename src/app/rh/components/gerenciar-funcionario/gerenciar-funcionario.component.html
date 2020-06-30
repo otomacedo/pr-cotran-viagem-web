@@ -7,6 +7,16 @@
       <li class="breadcrumb-item active">Gerenciamento de Funcionario</li>
   </ol>
 </nav>
+  <div>
+    <div class="card">
+      <div class="card-body">
+        Funcionario:  {{rh.funcionario.nome}} 
+        <br>
+        Ramal:  {{rh.funcionario.ramal}}
+      </div>
+    </div>
+  </div>
+<form [formGroup]="formRh">
 <div class="col-sm-12" >
     <!---<div class="form-group">
         <label for="exampleFormControlSelect1">Gratificação</label>
@@ -56,5 +66,5 @@
         </select>
       </div>
 </div>
-
+</form>
 <button class="btn btn-primary"  (click)="voltar()" >Voltar</button>

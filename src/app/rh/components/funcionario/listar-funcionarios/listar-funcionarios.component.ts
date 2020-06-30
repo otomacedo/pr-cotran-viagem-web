@@ -55,7 +55,10 @@ export class ListarFuncionariosComponent implements OnInit {
     });
   }
 
-  gerenciarFuncionario(){
+  gerenciarFuncionario(funcionario : Funcionario){
+    let rh=new Rh();
+    rh.funcionario = funcionario
+    this.store.dispatch(new AddFuncionario(rh));
     return this.router.navigate(['/','gerenciarFuncionario']);
   }
 

@@ -1,4 +1,4 @@
-export class tipoGratificacao{
+export class TipoGratificacao{
     constructor(){
     
     }

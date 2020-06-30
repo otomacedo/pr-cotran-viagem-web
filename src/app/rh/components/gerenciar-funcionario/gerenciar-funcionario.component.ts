@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { tipoGratificacao } from '../../models/tipoGratificacao';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
-import { rhState } from '../../reducers/rh.reducer';
+import { rhState, selectFuncionario } from '../../reducers/rh.reducer';
 import { RhService } from '../../rh.service';
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { SharedService } from 'src/app/Shared/shared.service';
+import { Funcionario } from '../../models/funcionario.model';
+import { Rh } from '../../models/rh.model';
 
 @Component({
   selector: 'app-gerenciar-funcionario',
@@ -14,8 +15,8 @@ import { SharedService } from 'src/app/Shared/shared.service';
 })
 export class GerenciarFuncionarioComponent implements OnInit {
 
-  tipoGratificacao: tipoGratificacao = new tipoGratificacao();
-  formTipoGratificacao: FormGroup;
+  formRh: FormGroup;
+  rh: Rh = new Rh();
 
   constructor (
     private store: Store<rhState>,
@@ -24,21 +25,37 @@ export class GerenciarFuncionarioComponent implements OnInit {
     private fb: FormBuilder,
     private shared: SharedService)
     {
-    this.formTipoGratificacao= this.creatForm();
+    this.formRh= this.creatForm();
     }
   ngOnInit(): void {
+    this.store.pipe(select(selectFuncionario)).subscribe(
+      funcionario => {
+        this.rh.funcionario = funcionario;
+      }
+    );
+
   }
 
   creatForm(){
     return this.fb.group ({
-      idTipoGratificacao : new FormControl(''),
-      tipo : new FormControl('')
+      idFuncionario : new FormControl(''),
+      idDepartamento : new FormControl(''),
+      idAtividade :new FormControl(''),
+      idSetor: new FormControl(''),
+      idGraduacao: new FormControl(''),
+      idGratificacao: new FormControl(''),
+      possePr: new FormControl(''),
+      matriculaSiape: new FormControl(''),
+      orgaoOrigem: new FormControl(''),
+      matriculaPr: new FormControl('')    
     })
   }
-  public preencheForm(tipoGratificacao: tipoGratificacao){
-    this.formTipoGratificacao.controls.idTipoGratificacao.setValue(tipoGratificacao.idTipoGratidicacao);
-    this.formTipoGratificacao.controls.tipo.setValue(tipoGratificacao.tipo);
+  public preencheForm(){
+
+
   }
+
+
   voltar(){
     return this.router.navigate(['/','funcionarios']);
   }
