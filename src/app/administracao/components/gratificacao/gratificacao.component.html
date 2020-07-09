@@ -7,6 +7,39 @@
         <li class="breadcrumb-item active">Gratificação</li>
     </ol>
   </nav> 
-<p>gratificacao works!</p>
-
-<button class="btn btn-primary"  (click)="voltar()" >Voltar</button>
+  <h4>Cadastrar Gratificação</h4>
+  <form [formGroup]="formGratificacao">
+    <div class="form-row">
+      <div class="col-sm-6">
+        <div class="col-sm-12">
+          <label>Gratificação:</label>
+          
+          <input type="text" class="form-control" formControlName="descricao" name="descricao">
+          <br>
+          <button class=" btn btn-success" (click)="salvarGratificacao()">Salvar</button>
+          &nbsp;
+          <button class="btn btn-primary" (click)="voltar()">Voltar</button>
+        </div>
+      </div>
+    </div>
+    <br>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Código</th>
+          <th scope="col">Gratificação</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let gratificacao of gratificacoes">
+          <td>{{ gratificacao.idGratificacao}}
+          </td>
+          <td>{{ gratificacao.descricao}}</td>
+          <td>
+            <button class=" btn btn-danger" (click)="excluirGratificacao(gratificacao)">Excluir</button>&nbsp;
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </form>

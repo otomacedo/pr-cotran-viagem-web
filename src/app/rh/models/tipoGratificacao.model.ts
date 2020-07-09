@@ -2,7 +2,7 @@ export class TipoGratificacao{
     constructor(){
     
     }
-    idTipoGratidicacao: number;
+    idTipoGratificacao: number;
     tipo: String;
     
     }

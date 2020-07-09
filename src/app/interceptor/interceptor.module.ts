@@ -1,20 +1,41 @@
 import { Injectable, NgModule } from "@angular/core";
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HTTP_INTERCEPTORS, HttpResponse } from '@angular/common/http';
+import {
+     HttpInterceptor, 
+     HttpRequest, 
+     HttpHandler, 
+     HttpEvent, 
+     HTTP_INTERCEPTORS 
+    } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { NgBlockUI, BlockUI } from 'ng-block-ui';
 import { finalize } from "rxjs/operators";
 
 @Injectable()
-export class HttpRequestInterceptor implements HttpInterceptor{
+export class HttpsRequestInterceptor implements HttpInterceptor{
 
-    @BlockUI() blockUI: NgBlockUI
+    @BlockUI() blockUI: NgBlockUI;
     constructor(){
 
     }
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>>{
-        this.blockUI.start("Carregando");
+        switch(req.method){
+            case 'POST' : 
+                this.blockUI.start("Salvando");
+                break;
+            case 'GET'  :
+                this.blockUI.start("Listando");
+                break;
+            case 'PUT' :
+                this.blockUI.start("Atualizando");
+                break;
+            case 'DELETE' : 
+                this.blockUI.start("Excluindo");
+                break;
+            default:
+                this.blockUI.start("Carregando");
+        }
          return next.handle(req).pipe(finalize(()=>{
-             console.log(req.method);
+            this.blockUI.stop();
          }))
     }
 }
@@ -22,7 +43,7 @@ export class HttpRequestInterceptor implements HttpInterceptor{
     providers:[
         {
             provide: HTTP_INTERCEPTORS,
-            useClass: HttpRequestInterceptor,
+            useClass: HttpsRequestInterceptor,
             multi:true
         }
     ]

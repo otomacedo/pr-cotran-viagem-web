@@ -7,6 +7,39 @@
         <li class="breadcrumb-item active">Setor</li>
     </ol>
   </nav>
-<p>setor works!</p>
-
-<button class="btn btn-primary"  (click)="voltar()" >Voltar</button>
+  <h4>Cadastrar Setor</h4>
+  <form [formGroup]="formSetor">
+    <div class="form-row">
+      <div class="col-sm-6">
+        <div class="col-sm-12">
+          <label>Setor:</label>
+          
+          <input type="text" class="form-control" formControlName="descricao" name="descricao">
+          <br>
+          <button class=" btn btn-success" (click)="salvarSetor()">Salvar</button>
+          &nbsp;
+          <button class="btn btn-primary" (click)="voltar()">Voltar</button>
+        </div>
+      </div>
+    </div>
+    <br>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Código</th>
+          <th scope="col">Atividade</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let setor of setores">
+          <td>{{ setor.idSetor}}
+          </td>
+          <td>{{ setor.descricao}}</td>
+          <td>
+            <button class=" btn btn-danger" (click)="excluirSetor(setor)" >Excluir</button>&nbsp;
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </form>

@@ -1,70 +1,93 @@
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
-      <li class="breadcrumb-item active">
-        <a href="/inicio">Home </a></li>
-      <li class="breadcrumb-item active">
-        <a href="/funcionarios">Funcionarios</a></li>
-      <li class="breadcrumb-item active">Gerenciamento de Funcionario</li>
+    <li class="breadcrumb-item active">
+      <a href="/inicio">Home </a></li>
+    <li class="breadcrumb-item active">
+      <a href="/funcionarios">Funcionarios</a></li>
+    <li class="breadcrumb-item active">Gerenciamento de Funcionario</li>
   </ol>
 </nav>
-  <div>
-    <div class="card">
-      <div class="card-body">
-        Funcionario:  {{rh.funcionario.nome}} 
-        <br>
-        Ramal:  {{rh.funcionario.ramal}}
+<form [formGroup]="formRh">
+  <div class="card">
+    <h5 class="card-header">{{rh.funcionario.nome}} </h5>
+    <div class="card-body">
+      <div class="form-row">
+
+        <div class="col-sm-6">
+          <label>Órgão origem:</label>
+          <input type="text" class="form-control" formControlName="orgaoOrigem">
+        </div>
+
+        <div class="col-sm-6">
+          <label>Data de posse na presidência:</label>
+          <input type="date" class="form-control" formControlName="possePr">
+        </div>
+
+        <div class="col-sm-6">
+          <label>Matricula Siape:</label>
+          <input type="text" class="form-control" formControlName="matriculaSiape">
+        </div>
+
+        <div class="col-sm-6">
+          <label>Matricula PR:</label>
+          <input type="text" class="form-control" formControlName="matriculaPr">
+        </div>
+
+        <div class="col-sm-6">
+          <label for="exampleFormControlSelect1">Atividade Desempenhada:</label>
+          <select class="form-control" formControlName="atividade" id="exampleFormControlSelect1">
+            <option value="">Selecione</option>
+            <option *ngFor="let a of atividade" [value]="a.idAtividade">{{a.descricao}}</option>
+          </select>
+        </div>
+
+        <div class="col-sm-6">
+          <label for="exampleFormControlSelect1">Departamento:</label>
+          <select class="form-control" formControlName="departamento" id="exampleFormControlSelect1">
+            <option value="">Selecione</option>
+            <option *ngFor="let d of departamento" [value]="d.idDepartamento">{{d.descricao}}</option>
+          </select>
+        </div>
+
+
+        <div class="col-sm-6">
+          <label for="exampleFormControlSelect1">Graduação</label>
+          <select class="form-control" formControlName="graduacao" id="exampleFormControlSelect1">
+            <option value="">Selecione</option>
+            <option *ngFor="let g of graduacao" [value]="g.idGraduacao">{{g.descricao}} </option>
+          </select>
+        </div>
+        <!---#######-->
+        <div class="col-sm-6">
+          <label for="exampleFormControlSelect1">Setor</label>
+          <select class="form-control" formControlName="setor" id="exampleFormControlSelect1">
+            <option value="">Selecione</option>
+            <option *ngFor="let s of setor" [value]="s.idSetor">{{s.descricao}}</option>
+          </select>
+        </div>
+
+        <div class="col-sm-6">
+          <label for="exampleFormControlSelect1">Gratificação</label>
+          <select class="form-control" formControlName="gratificacao" id="exampleFormControlSelect1">
+            <option value="">Selecione</option>
+            <option *ngFor="let g of gratificacao" [value]="g.idGratificacao">{{g.descricao}}</option>
+          </select>
+        </div>
+
+        <!---#######-->
+        <div class="col-sm-6">
+          <label for="exampleFormControlSelect1">Tipo Gratificação</label>
+          <select class="form-control" formControlName="tipoGratificacoes">
+            <option value="">Selecione</option>
+            <option *ngFor="let t of tipoGratificacao" [value]="t.idTipoGratificacao">{{t.tipo}}</option>
+          </select>
+        </div>
       </div>
     </div>
   </div>
-<form [formGroup]="formRh">
-<div class="col-sm-12" >
-    <!---<div class="form-group">
-        <label for="exampleFormControlSelect1">Gratificação</label>
-        <select class="form-control" id="tipoGratificacao" formControlName="formTipoGratificacao" [(ngModel)]="tipoGratificacao">
-            <option value="default">Gratificação</option>
-            <option *ngFor="let tipoGratificacao of tipo" [ngValue]="tipoGratificacao">{{tipoGratificacao.tipo}}</option>
-        </select>
-      </div> --->
-      <div class="form-group">
-        <label for="exampleFormControlSelect1">Atividade Desempenhada</label>
-        <select class="form-control" id="exampleFormControlSelect1">
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
-          <option>4</option>
-          <option>5</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="exampleFormControlSelect1">Graduação</label>
-        <select class="form-control" id="exampleFormControlSelect1">
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
-          <option>4</option>
-          <option>5</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="exampleFormControlSelect1">Gratificação</label>
-        <select class="form-control" id="exampleFormControlSelect1">
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
-          <option>4</option>
-          <option>5</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="exampleFormControlSelect1">Setor</label>
-        <select class="form-control" id="exampleFormControlSelect1">
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
-          <option>4</option>
-          <option>5</option>
-        </select>
-      </div>
-</div>
 </form>
-<button class="btn btn-primary"  (click)="voltar()" >Voltar</button>
+<br>
+&nbsp;
+<button class=" btn btn-success"(click)="incluirEditar()">Salvar</button>
+&nbsp;
+<button class="btn btn-primary" (click)="voltar()">Voltar</button>

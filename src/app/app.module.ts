@@ -18,6 +18,7 @@ import { StoreModule } from '@ngrx/store';
 import * as fromRh from 'src/app/rh/reducers/rh.reducer';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
  
+import { NgxLoadingModule } from 'ngx-loading';
 import { ToastrModule } from 'ngx-toastr';
 import { SharedService } from './Shared/shared.service';
 import { DatePipe } from '@angular/common';
@@ -48,11 +49,11 @@ import { TipoGratificacaoComponent } from './administracao/components/tipo-grati
     TipoGratificacaoComponent
   ],
   imports: [
+    BlockUIModule.forRoot(),
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     NgbModule,
-    BlockUIModule.forRoot(),
     Interceptor,
     FormsModule,
     ReactiveFormsModule,
@@ -60,7 +61,8 @@ import { TipoGratificacaoComponent } from './administracao/components/tipo-grati
     SharedService,
     ToastrModule.forRoot(),
     StoreModule.forRoot({}, {}),
-    StoreModule.forFeature('rh', fromRh.reducer)
+    StoreModule.forFeature('rh', fromRh.reducer),
+    BlockUIModule.forRoot({})
   ],
   providers: [RhService, DatePipe],
   bootstrap: [AppComponent]

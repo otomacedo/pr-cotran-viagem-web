@@ -28,7 +28,9 @@ export class CadastrarFuncionarioComponent implements OnInit, OnDestroy {
     private service: RhService,
     private router:Router,
     private fb: FormBuilder,
-    private shared: SharedService) {
+    private shared: SharedService)
+
+    {
   this.formFuncionario = this.createForm();
   }
   ngOnDestroy(): void {

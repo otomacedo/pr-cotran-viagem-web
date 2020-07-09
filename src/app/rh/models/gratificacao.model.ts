@@ -6,5 +6,5 @@ export class Gratificacao{
     }
     idGratificacao: number;
     descricao: String;
-    tipoGratificacao : TipoGratificacao;
+    tipoGratificacoes : TipoGratificacao [];
 }

@@ -1,36 +1,52 @@
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
-      <li class="breadcrumb-item active">
-        <a href="/inicio"> Home </a></li>
-      <li class="breadcrumb-item active">
-        Funcionários</li>
+    <li class="breadcrumb-item active">
+      <a href="/inicio"> Home </a></li>
+    <li class="breadcrumb-item active">
+      Funcionários</li>
   </ol>
 </nav>
-  <table class="table table-striped">
-    <thead>
+<div class="col-sm-12">
+  <label>Pesquisar:</label>
+  <div class="input-group mb-3">
+    <input type="text" class="form-control" placeholder="Pesquisa" aria-label="Recipient's username"
+      aria-describedby="basic-addon2">
+      <select class="form-control" id="exampleFormControlSelect1">
+        <option>CPF</option>
+        <option>RG</option>
+        <option>Nome de Guerra</option>
+        
+      </select>
+    <div class="input-group-append">
+      <button class="btn btn-outline-secondary" type="button" class="btn btn-primary">Pesquisar</button>
+    </div>
+  </div>
+</div>
+<table class="table table-striped">
+  <thead>
     <tr>
       <th scope="col">Código</th>
       <th scope="col">Nome</th>
       <th scope="col">Nome Guerra</th>
       <th scope="col"></th>
     </tr>
-    </thead>
-    <tbody>
+  </thead>
+  <tbody>
     <tr *ngFor="let funcionario of funcionarios">
       <td>{{funcionario.idFuncionario}}
       </td>
       <td>{{ funcionario.nome }}</td>
       <td>{{ funcionario.nomeGuerra }}</td>
-      <td>  
-        <button class=" btn btn-danger" (click)="excluirFuncionario(funcionario)">Excluir</button>&nbsp; 
-        <button class=" btn btn-primary" (click)="editarFuncionario(funcionario)" >Editar</button>&nbsp;
+      <td>
+        <button class=" btn btn-danger" (click)="excluirFuncionario(funcionario)">Excluir</button>&nbsp;
+        <button class=" btn btn-primary" (click)="editarFuncionario(funcionario)">Editar</button>&nbsp;
         <button class=" btn btn-outline-primary" (click)="gerenciarFuncionario(funcionario)">Gerenciar</button>
       </td>
     </tr>
-    </tbody>
-  </table>
-  <button class=" btn btn-primary" (click)="listarFuncionarios()">Listar</button>
-  &nbsp;
-  <button class="btn btn-primary"  (click)="cadastrarFuncionario()" >Cadastrar</button>
-  &nbsp;
-  <button class="btn btn-primary"  (click)="voltar()" >Voltar</button>
+  </tbody>
+</table>
+<button class=" btn btn-primary" (click)="listarFuncionarios()">Listar</button>
+&nbsp;
+<button class="btn btn-primary" (click)="cadastrarFuncionario()">Cadastrar</button>
+&nbsp;
+<button class="btn btn-primary" (click)="voltar()">Voltar</button>

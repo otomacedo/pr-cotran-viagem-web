@@ -7,6 +7,39 @@
         <li class="breadcrumb-item active">Graduação</li>
     </ol>
   </nav> 
-<p>graduacao works!</p>
-<button class="btn btn-primary"  (click)="voltar()" >Voltar</button> 
-
+  <h4>Cadastrar Graduação</h4>
+  <form [formGroup]="formGraduacao">
+    <div class="form-row">
+      <div class="col-sm-6">
+        <div class="col-sm-12">
+          <label>Graduação:</label>
+          
+          <input type="text" class="form-control" formControlName="descricao" name="descricao">
+          <br>
+          <button class=" btn btn-success" (click)="salvarGraduacao()">Salvar</button>
+          &nbsp;
+          <button class="btn btn-primary" (click)="voltar()">Voltar</button>
+        </div>
+      </div>
+    </div>
+    <br>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Código</th>
+          <th scope="col">Atividade</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let graduacao of graduacoes">
+          <td>{{ graduacao.idGraduacao}}
+          </td>
+          <td>{{ graduacao.descricao}}</td>
+          <td>
+            <button class=" btn btn-danger" (click)="excluirGraduacao(graduacao)" >Excluir</button>&nbsp;
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </form>

@@ -7,6 +7,18 @@
         <li class="breadcrumb-item active">Tipo Gratificação</li>
     </ol>
   </nav>
-<p>tipo-gratificacao works!</p>
-
-<button class="btn btn-primary"  (click)="voltar()" >Voltar</button>
+  <h4>Cadastrar Tipo Gratificação</h4>
+  <form>
+    <div class="form-row">
+      <div class="col-sm-6">
+        <div class="col-sm-12">
+          <label>Gratificação:</label>
+          
+          <input type="text" class="form-control" formControlName="nome" name="nome">
+  
+          <br>
+          <button class="btn btn-primary" (click)="voltar()">Voltar</button>
+        </div>
+      </div>
+    </div>
+  </form>

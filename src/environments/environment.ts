@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  url:'http://127.0.0.1:8080/pr-cotran-viagem/myApp/'
+  url:'http://127.0.0.1:8080/projeto/myApp/'
 };
 
 /*
