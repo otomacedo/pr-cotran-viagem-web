@@ -104,6 +104,6 @@ export class RhService {
    }
 
    public consultarPorFuncionario(id){
-      return this.http.get<Rh>(environment.url+'rh/consultarPorFuncionario',httpOptions)
+      return this.http.get<Rh>(environment.url+'rh/consultarRhPorFuncionario/'+id,httpOptions)
    }
 }

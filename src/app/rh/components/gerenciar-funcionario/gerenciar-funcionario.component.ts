@@ -32,6 +32,12 @@ export class GerenciarFuncionarioComponent implements OnInit {
   tipoGratificacao : TipoGratificacao[]= new Array();
   modoTela:String;
 
+  atividadeDTO : Atividade = new Atividade();
+  departamentoDTO : Departamento = new Departamento();
+  gratificacaoDTO: Gratificacao = new Gratificacao();
+  setorDTO: Setor = new Setor();
+  graduacaoDTO: Graduacao = new Graduacao();
+
   constructor (
     private store: Store<rhState>,
     private service: RhService,
@@ -47,16 +53,17 @@ export class GerenciarFuncionarioComponent implements OnInit {
     this.listarGraduacao();
     }
   ngOnInit(): void {
-
     this.carregarModoTela()
     this.carregarTipo();
-
     this.store.pipe(select(selectFuncionario)).subscribe(
       funcionario => {
         this.service.consultarPorFuncionario(funcionario.idFuncionario).subscribe(
           rh=>{
-            if(rh.idRh != null)
-              this.rh = rh
+            if(rh.idRh != null){
+              this.rh = rh;
+              this.preencheForm();
+            }
+              
           }
         )
         this.rh.funcionario = funcionario;
@@ -100,38 +107,35 @@ export class GerenciarFuncionarioComponent implements OnInit {
       matriculaPr: new FormControl('')    
     })
   }
-  public preencheForm(rh: Rh){
+  public preencheForm(){
 
-    this.formRh.controls.funcionario.setValue(rh.funcionario);
-    this.formRh.controls.departamento.setValue(rh.departamento);
-    this.formRh.controls.atividade.setValue(rh.atividade);
-    this.formRh.controls.setor.setValue(rh.setor);
-    this.formRh.controls.graduacao.setValue(rh.graduacao);
-    this.formRh.controls.gratificacao.setValue(rh.gratificacao);
-    this.formRh.controls.tipoGratificacoes.setValue(rh.gratificacao.tipoGratificacoes);
-    this.formRh.controls.possePr.setValue(rh.possePr);
-    this.formRh.controls.matriculaSiape.setValue(rh.matriculaSiape);
-    this.formRh.controls.matriculaPr.setValue(rh.matriculaPr);
-    this.formRh.controls.orgaoOrigem.setValue(rh.orgaoOrigem);
+    this.formRh.controls.departamento.setValue(this.validarId(this.rh.departamento.idDepartamento));
+    this.formRh.controls.atividade.setValue(this.validarId(this.rh.atividade.idAtividade));
+    this.formRh.controls.setor.setValue(this.validarId(this.rh.setor.idSetor));
+    this.formRh.controls.graduacao.setValue(this.validarId(this.rh.graduacao.idGraduacao)); 
+    this.formRh.controls.gratificacao.setValue(this.validarId(this.rh.gratificacao.idGratificacao));
+    this.formRh.controls.tipoGratificacoes.setValue(this.validarId(this.rh.gratificacao.tipoGratificacoes));
+    this.formRh.controls.possePr.setValue(this.validarId(this.rh.possePr));
+    this.formRh.controls.matriculaSiape.setValue(this.validarId(this.rh.matriculaSiape));
+    this.formRh.controls.matriculaPr.setValue(this.validarId(this.rh.matriculaPr));
+    this.formRh.controls.orgaoOrigem.setValue(this.validarId(this.rh.orgaoOrigem));
 
   }
 
   public rhDTO(): Rh{
-    let rhDTO = new Rh();
-    
-    rhDTO.idRh=this.formRh.controls.idRh.value;
-    rhDTO.funcionario = this.formRh.controls.funcionario.value;
-    rhDTO.atividade = this.formRh.controls.atividade.value;
-    rhDTO.departamento = this.formRh.controls.departamento.value;
-    rhDTO.graduacao = this.formRh.controls.graduacao.value;
-    rhDTO.gratificacao = this.formRh.controls.gratificacao.value;
-    rhDTO.gratificacao.tipoGratificacoes = this.formRh.controls.tipoGratificacoes.value;
+    this.preencherDTO()
+    let rhDTO:Rh = new Rh();
+    rhDTO.idRh = this.rh.idRh;
+    rhDTO.funcionario = this.rh.funcionario;
+    rhDTO.atividade = this.atividadeDTO;
+    rhDTO.departamento = this.departamentoDTO;
+    rhDTO.graduacao = this.graduacaoDTO;
+    rhDTO.gratificacao = this.gratificacaoDTO;
+    rhDTO.setor = this.setorDTO;
     rhDTO.matriculaPr = this.formRh.controls.matriculaPr.value;
     rhDTO.matriculaSiape = this.formRh.controls.matriculaSiape.value;
     rhDTO.orgaoOrigem = this.formRh.controls.orgaoOrigem.value;
     rhDTO.possePr = this.formRh.controls.possePr.value;
-    rhDTO.setor = this.formRh.controls.setor.value;
-
     return rhDTO;
   }
 
@@ -195,4 +199,15 @@ export class GerenciarFuncionarioComponent implements OnInit {
     })
   }
 
+  private preencherDTO(){
+    this.atividadeDTO.idAtividade = this.formRh.controls.atividade.value;
+    this.departamentoDTO.idDepartamento = this.formRh.controls.departamento.value;
+    this.graduacaoDTO.idGraduacao = this.formRh.controls.graduacao.value;
+    this.gratificacaoDTO.idGratificacao = this.formRh.controls.gratificacao.value;
+    this.setorDTO.idSetor = this.formRh.controls.setor.value;
+  }
+
+  validarId(id){
+    return id === undefined ? "": id;
+  }
 }
