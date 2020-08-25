@@ -28,6 +28,7 @@ export class DepartamentoComponent implements OnInit {
     this.formDepartamento = this.createForm();
    }
   departamentos: Departamento[];
+  p: number = 1;
 
   ngOnInit(): void {
     this.listarDepartamentos();

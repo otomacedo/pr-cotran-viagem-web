@@ -1,23 +1,18 @@
-<nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
-      <li class="breadcrumb-item active">
-        <a href="/inicio"> Home </a></li>
-      <li class="breadcrumb-item active">
-        <a href="/funcionarios" > Funcionários </a> </li>
-      <li class="breadcrumb-item active">Cadastrar</li>
-  </ol>
-</nav>
 
-<form    [formGroup]="formFuncionario">
+<form   class="was-validate" [formGroup]="formFuncionario">
+  <div class="card">
+    <div class="card-header">
+      Cadastrar Funcionário 
+    </div>
    <div class="form-row">
      <div class="col-sm-6">
         <div class="col-sm-12">
             <label>Nome:</label>
-            <input  type="text" class="form-control" formControlName="nome" name="nome" placeholder="Nome">
+            <input  type="text" class="form-control" formControlName="nome" placeholder="Nome" required="">
           </div>
           <div class="col-sm-12">
             <label>Nome de Guerra:</label>
-            <input type="text" class="form-control"formControlName="nomeGuerra" name="nomeGuerra" placeholder="Nome de Guerra">
+            <input type="text" class="form-control" formControlName="nomeGuerra" name="nomeGuerra" placeholder="Nome de Guerra">
           </div>
       <div class="col-sm-12">
         <label>Endereço:</label>
@@ -43,6 +38,7 @@
         <label>Telefone:</label>
         <input type="text" class="form-control" formControlName="telefone" name="telefone" placeholder="(00) 0000-0000">
       </div>
+      <input type="hidden" class="form-control" formControlName="status" name="status">
 
      </div>
      <!-- ##################################################################-->
@@ -112,6 +108,7 @@
             <input type="text" class="form-control" formControlName="secaoTitulo" name="secaoTitulo" placeholder="">
           </div>
          
+</div>
 </div>
 </div>
 <br>

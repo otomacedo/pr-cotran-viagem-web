@@ -24,4 +24,7 @@ export class SharedService{
         return this.d.transform(data,"yyyy-MM-dd");
     }
 
+    formatarDataBR(data: Date): string{
+        return this.d.transform(data,"dd-MM-yyyy");
+    }
     }

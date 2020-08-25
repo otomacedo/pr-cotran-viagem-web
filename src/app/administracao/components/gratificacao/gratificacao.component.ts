@@ -28,6 +28,8 @@ export class GratificacaoComponent implements OnInit {
     this.formGratificacao = this.createForm();
   }
   gratificacoes : Gratificacao[]
+  p: number = 1;
+
   ngOnInit(): void {
     this.listarGratificacao();
   }

@@ -1,1 +1,60 @@
-<p>ferias works!</p>
+<form  [formGroup]="formFerias">
+    <div class="card">
+        <div class="card-header">
+            <strong><h5>Marcar Férias</h5></strong> 
+        </div>
+        <div class="form-row">
+            <div class="col-sm-5">
+                <label for="example-date-input" class="col-6 col-form-label">Inicio:</label>
+                <div class="col-12">
+                    <input class="form-control" formControlName="inicio" type="date" >
+                </div>
+            </div>
+            <div class="col-sm-2">
+              <label for="example-date-input" class="col-12 col-form-label">Quantidade de Dias:</label>
+              <div class="col-sm-12">
+                <input type="text" class="form-control" formControlName="qtdDias" name="quantidadedias">
+              </div>
+
+            </div>
+            <div class="col-sm-5">
+                <label for="example-date-input" class="col-6 col-form-label">Término:</label>
+                <div class="col-sm-12">
+                    <input class="form-control" disabled formControlName="fim" type="date" >
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="col-sm-4">
+            <button class="btn btn-success" (click)="salvarFerias()">Marcar Férias</button>   
+            &nbsp;
+            <button class="btn btn-primary" (click)="voltar()">Voltar</button>
+
+        </div>
+        <div class="col-12">
+            <br>
+        </div>
+    </div>
+    <br>
+    <br>
+    <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Data de inicio das Férias</th>
+            <th scope="col">Data de Término das Férias</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let ferias of rh.ferias">
+            <td>{{ ferias.inicio | date: 'dd/MM/yyyy' }}
+            </td>
+            <td>{{ ferias.fim | date: 'dd/MM/yyyy'}}</td>
+            <td>
+              <button class=" btn btn-danger" (click)="excluirFerias(ferias)">Excluir</button>&nbsp;
+              <button class="btn btn-primary">Editar</button>&nbsp;
+            </td>
+          </tr>
+        </tbody>
+      </table>
+</form>

@@ -4,6 +4,8 @@ import { Setor } from './setor.model';
 import { Graduacao } from './graduacao.model';
 import { Atividade } from './atividade.model';
 import { Departamento } from './departamento.model';
+import { TipoGratificacao } from './tipoGratificacao.model';
+import { Ferias } from './ferias.model';
 
 export class Rh{
     constructor(){
@@ -22,5 +24,7 @@ export class Rh{
     setor :  Setor;
     atividade : Atividade;
     departamento : Departamento;
+    tipo: TipoGratificacao;
+    ferias: Ferias[];
     
 }

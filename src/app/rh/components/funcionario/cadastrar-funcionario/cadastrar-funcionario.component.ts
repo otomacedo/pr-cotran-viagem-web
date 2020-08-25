@@ -50,8 +50,9 @@ export class CadastrarFuncionarioComponent implements OnInit, OnDestroy {
   }
 
   public salvar(){
-    if(this.modoTela == 'CADASTRAR')
-       this.cadastrarFuncionario();
+    if(this.modoTela == 'CADASTRAR'){
+      this.cadastrarFuncionario();
+    }
     else if( this.modoTela == 'EDITAR')
       this.editarFuncionario();
     
@@ -71,16 +72,16 @@ export class CadastrarFuncionarioComponent implements OnInit, OnDestroy {
       this.shared.mensagemSucesso(data["mensagem"]);
       return  this.router.navigate(['/','funcionarios']);
     })
-  }
+  }  
 
   voltar(){
     return this.router.navigate(['/','funcionarios']);
   }
 
-  createForm(){
+  private createForm(){
     return  this.fb.group({
       idFuncionario: new FormControl(''),
-      nome: new FormControl(''),
+      nome: new FormControl(Validators.maxLength(3) ),
       nomeGuerra: new FormControl(''),
       endereco: new FormControl(''),
       cidade: new FormControl(''),
@@ -100,7 +101,8 @@ export class CadastrarFuncionarioComponent implements OnInit, OnDestroy {
       dtExpedicaoPassaporte: new FormControl(''),
       inscricaoTitulo: new FormControl(''),
       zonaTitulo: new FormControl(''),
-      secaoTitulo: new FormControl('')
+      secaoTitulo: new FormControl(''),
+      status: new FormControl(true)
 
     })
   }
@@ -129,6 +131,7 @@ export class CadastrarFuncionarioComponent implements OnInit, OnDestroy {
     this.formFuncionario.controls.inscricaoTitulo.setValue(funcionario.inscricaoTitulo);
     this.formFuncionario.controls.zonaTitulo.setValue(funcionario.zonaTitulo);
     this.formFuncionario.controls.secaoTitulo.setValue(funcionario.secaoTitulo);
+    this.formFuncionario.controls.status.setValue(funcionario.status);
   }
 
   funcionarioDTO(): Funcionario{
@@ -156,8 +159,9 @@ export class CadastrarFuncionarioComponent implements OnInit, OnDestroy {
     funcionarioDTO.dtNascimento= this.formFuncionario.controls.dtNascimento.value
     funcionarioDTO.endereco= this.formFuncionario.controls.endereco.value
     funcionarioDTO.inscricaoTitulo = this.formFuncionario.controls.inscricaoTitulo.value
+    funcionarioDTO.status = this.formFuncionario.controls.status.value
 
-    return funcionarioDTO;
+    return funcionarioDTO;   
   }
 
 }

@@ -29,6 +29,8 @@ export class GraduacaoComponent implements OnInit {
    }
 
    graduacoes : Graduacao[]
+   p: number = 1;
+
   ngOnInit(): void {
     this.listarGraduacao()
   }

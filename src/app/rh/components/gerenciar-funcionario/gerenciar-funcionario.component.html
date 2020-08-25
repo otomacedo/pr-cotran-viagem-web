@@ -1,18 +1,11 @@
-<nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item active">
-      <a href="/inicio">Home </a></li>
-    <li class="breadcrumb-item active">
-      <a href="/funcionarios">Funcionarios</a></li>
-    <li class="breadcrumb-item active">Gerenciamento de Funcionario</li>
-  </ol>
-</nav>
 <form [formGroup]="formRh">
   <div class="card">
-    <h5 class="card-header">{{rh.funcionario.nome}} </h5>
+    <div class="card-header">
+      {{rh.funcionario.nome}}
+    </div>
     <div class="card-body">
+      
       <div class="form-row">
-
         <div class="col-sm-6">
           <label>Órgão origem:</label>
           <input type="text" class="form-control" formControlName="orgaoOrigem">
@@ -87,6 +80,13 @@
   </div>
 </form>
 <br>
+<div *ngIf="rh.funcionario.status; else inativos">
+  <button class=" btn btn-danger" style="float: right;" (click)="inativar()">Inativar Funcionário</button>
+
+</div>
+<ng-template #inativos>
+  <button class=" btn btn-success" style="float: right;" (click)="ativar()">Ativar Funcionário</button>
+</ng-template>
 &nbsp;
 <button class=" btn btn-success"(click)="incluirEditar()">Salvar</button>
 &nbsp;

@@ -1,14 +1,8 @@
-<nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item active">
-      <a href="/inicio"> Home </a></li>
-    <li class="breadcrumb-item active">
-      <a href="/administracao">Administração</a> </li>
-    <li class="breadcrumb-item active">Departamento</li>
-  </ol>
-</nav>
-<h4>Cadastrar Departamento</h4>
 <form [formGroup]="formDepartamento">
+  <div class="card">
+    <div class="card-header">
+      Cadastrar Departamento
+    </div>
   <div class="form-row">
     <div class="col-sm-6">
       <div class="col-sm-12">
@@ -32,7 +26,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let departamento of departamentos">
+      <tr *ngFor="let departamento of departamentos  | paginate: {itemsPerPage: 5, currentPage: p}">
         <td>{{ departamento.idDepartamento}}
         </td>
         <td>{{ departamento.descricao}}</td>
@@ -40,6 +34,8 @@
           <button class=" btn btn-danger" (click)="excluirDepartamento(departamento)" >Excluir</button>&nbsp;
         </td>
       </tr>
+      <pagination-controls (pageChange)="p = $event"></pagination-controls>
     </tbody>
   </table>
+</div>
 </form>

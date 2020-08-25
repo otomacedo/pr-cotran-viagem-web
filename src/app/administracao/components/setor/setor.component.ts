@@ -28,7 +28,8 @@ export class SetorComponent implements OnInit {
     this.formSetor = this.createForm();
    }
    setores: Setor[];
-  
+   p: number = 1;
+
    ngOnInit(): void {
      this.listarSetor();
   }

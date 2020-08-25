@@ -1,24 +1,73 @@
 <!--####################################################################################-->
 <!--- MENU -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="#">Sistema de Viagens</a>
+  <a class="navbar-brand" href="#"> <img src="../assets/logo-menu.png"/> COTRAN</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="inicio">Home <span class="sr-only">(current)</span></a>
+      <li class="nav-item active" (click)="home()">
+        <span class="nav-link" style="cursor: pointer;" >Home <span class="sr-only">(current)</span></span>
+      </li>
+      <li class="nav-item " (click)="funcionarios()">
+        <span class="nav-link"  style="cursor: pointer;">Funcionarios <span class="sr-only">(current)</span></span>
+      </li>
+      <li class="nav-item " (click)="administracao()">
+        <span class="nav-link"  style="cursor: pointer;">Administração <span class="sr-only">(current)</span></span>
+      </li>
+      <li class="nav-item " (click)="viagens()">
+        <span class="nav-link"  style="cursor: pointer;" >Viagens <span class="sr-only">(current)</span></span>
+      </li>
+      <li class="nav-item " (click)="relatorios()">
+        <span class="nav-link"  style="cursor: pointer;">Relatórios <span class="sr-only">(current)</span></span>
       </li>
     </ul>
+    
     
   </div>
 </nav>
 <!--FIM DO MENU ####################################################################################-->
 
 <div class="container">
-<router-outlet></router-outlet>
-<block-ui>
-</block-ui>
+  <router-outlet></router-outlet>
+  <block-ui>
+  </block-ui>
 </div>
+
+<div class="content">
+</div>
+    <footer id="myFooter">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-3">
+                    <h5>Inicio</h5>
+                    <ul>
+                        <li><a href="inicio">Home</a></li>
+  
+                    </ul>
+                </div>
+                <div class="col-sm-3">
+                    <h5>Sobre nós</h5>
+                    <ul>
+                        <li><a href="https://programadorviking.com.br/">Informações da Empresa</a></li>
+                        <li><a href="https://programadorviking.com.br/">Contato</a></li>
+                        <li><a href="https://programadorviking.com.br/">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-3">
+                    <h5>Suporte</h5>
+                    <ul>
+                        <li><a href="https://programadorviking.com.br/">FAQ</a></li>
+                        <li><a href="https://programadorviking.com.br/">Telefones</a></li>
+                        <li><a href="https://programadorviking.com.br/">Chat</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-3 info">
+                    <h5>Informações</h5>
+                    <p> Se você deseja se tornar um programador de sucesso. </p>
+                </div>
+            </div>
+        </div>
+    </footer>

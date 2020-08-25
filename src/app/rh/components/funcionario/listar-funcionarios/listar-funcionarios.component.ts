@@ -4,9 +4,12 @@ import { BehaviorSubject } from 'rxjs';
 import { Funcionario } from 'src/app/rh/models/funcionario.model';
 import { Store } from '@ngrx/store';
 import { rhState } from 'src/app/rh/reducers/rh.reducer';
-import { AddFuncionario, ModoTela } from 'src/app/rh/actions/rh.actions';
+import { AddFuncionario, ModoTela, AddRh } from 'src/app/rh/actions/rh.actions';
 import { Rh } from 'src/app/rh/models/rh.model';
 import { Router } from '@angular/router';
+import { Ferias } from 'src/app/rh/models/ferias.model';
+import { filtro } from 'src/app/rh/models/filtro.model';
+import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-listar-funcionarios',
@@ -14,17 +17,35 @@ import { Router } from '@angular/router';
   styleUrls: ['./listar-funcionarios.component.scss']
 })
 export class ListarFuncionariosComponent implements OnInit {
+  formFiltro: FormGroup;
+ 
 
-  constructor(private service: RhService, private store: Store<rhState>, private router: Router) { }
+  public tipos : filtro[]= [
+    new filtro("Nome",1),
+    new filtro("Nome de Guerra",2),
+    new filtro("Cpf",3),
+    new filtro("Rg",4),
+    new filtro("Ramal",5)
+  ]
+  constructor(private fb: FormBuilder,private service: RhService, private store: Store<rhState>, private router: Router) 
+  {
+   
+   }
 
-  
+
   funcionarios: Funcionario[];
+  p: number = 1;
 
   ngOnInit(): void {
     this.store.dispatch(new ModoTela("CADASTRAR"));
     this.listarFuncionarios();
   }
-
+  private createForm(){
+    return this.fb.group({
+      valor:new FormControl(''),
+      tipo: new FormControl('')
+    })
+  }
   cadastrarFuncionario() {
     return this.router.navigate(['/','cadastrarFuncionario']);
   }
@@ -44,26 +65,55 @@ export class ListarFuncionariosComponent implements OnInit {
     return this.router.navigate(['/','cadastrarFuncionario']);
   }
 
+
   consultarFuncionario() {
 
   }
 
 
   listarFuncionarios() {
-    this.service.listarFuncionarios().subscribe(dados => {
+    this.service.listarFuncionariosAtivos().subscribe(dados => {
       this.funcionarios = dados;
     });
   }
 
+  listarFuncionariosInativos() {
+    this.service.listarFuncionariosInativos().subscribe(dados => {
+      this.funcionarios = dados;
+    });
+  }
   gerenciarFuncionario(funcionario : Funcionario){
-    let rh=new Rh();
-    rh.funcionario = funcionario
-    this.store.dispatch(new AddFuncionario(rh));
-    return this.router.navigate(['/','gerenciarFuncionario']);
+    
+    this.service.consultarPorFuncionario(funcionario.idFuncionario).subscribe(
+      r=>{
+        if(r.idRh != null){
+          this.store.dispatch(new AddRh(r));
+          return this.router.navigate(['/','perfilFuncionario']);
+        }else{
+          let rh=new Rh();
+          rh.funcionario = funcionario;
+          this.store.dispatch(new AddRh(rh));
+            return this.router.navigate(['/','gerenciarFuncionario']);
+        }
+          
+      }
+    )
+
   }
 
   voltar(){
     return this.router.navigate(['/','inicio']);
   }
+  filtrar(){
+    let f: filtro = new filtro(
+      this.formFiltro.controls.valor.value,
+      this.formFiltro.controls.tipo.value
+    )
+    return this.service.filtrarFuncionarios(f).subscribe(
+      funcionarios=>{
+        this.funcionarios = funcionarios
+      }
+    )
+  }
 
-}
+} 

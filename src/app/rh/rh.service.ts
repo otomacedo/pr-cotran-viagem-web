@@ -8,6 +8,8 @@ import { Setor } from './models/setor.model';
 import { Graduacao } from './models/graduacao.model';
 import { Gratificacao } from './models/gratificacao.model';
 import { Rh } from './models/rh.model';
+import { Ferias } from './models/ferias.model';
+import { filtro } from './models/filtro.model';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -47,14 +49,21 @@ export class RhService {
    public salvarGraduacao(graduacao: Graduacao){
       return this.http.post(`${environment.url}`+'administracao/salvarGraduacao',graduacao,httpOptions);
    }
-
+   
    public salvarSetor(setor: Setor){
       return this.http.post(`${environment.url}`+'administracao/salvarSetor',setor,httpOptions)
    }
 
    public editarFuncionario(funcionario: Funcionario){
     return this.http.put(`${environment.url}`+'funcionario/editar', funcionario, httpOptions);
- }
+   }
+   public atualizarStatusFuncionario(funcionario: Funcionario){
+      return this.http.put(`${environment.url}`+'funcionario/atualizarStatus', funcionario, httpOptions);
+   }
+   public excluirRh(rh: Rh){
+      return this.http.delete(`${environment.url}`+'rh/excluirRh/'+rh.idRh,httpOptions);
+   }
+
    public excluir(funcionario: Funcionario){
       return this.http.delete(`${environment.url}`+'funcionario/excluir/'+funcionario.idFuncionario, httpOptions)
    }
@@ -87,6 +96,13 @@ export class RhService {
       return this.http.get<Departamento[]>(environment.url+'administracao/listarDepartamento',httpOptions)
    }
 
+   public listarFuncionariosAtivos(){
+      return this.http.get<Funcionario[]>(environment.url+'funcionario/listarAtivos',httpOptions);
+   }
+
+   public listarFuncionariosInativos(){
+      return this.http.get<Funcionario[]>(environment.url+'funcionario/listarInativos',httpOptions);
+   }
    public listarSetor(){
       return this.http.get<Setor[]>(environment.url+'administracao/listarSetor', httpOptions)
    }
@@ -105,5 +121,17 @@ export class RhService {
 
    public consultarPorFuncionario(id){
       return this.http.get<Rh>(environment.url+'rh/consultarRhPorFuncionario/'+id,httpOptions)
+   }
+
+   public excluirFerias(ferias: Ferias){
+      return this.http.delete(`${environment.url}`+'rh/excluirFerias/'+ferias.idFerias, httpOptions)
+   }
+
+   public consultarRh(id){
+      return this.http.get<Rh>(environment.url+'rh/consultarRh/'+id,httpOptions)
+   }
+
+   public filtrarFuncionarios(filtro: filtro){
+      return this.http.get<Funcionario[]>(environment.url+'funcionario/filtrar/'+filtro.tipo+'/'+filtro.valor,httpOptions);
    }
 }

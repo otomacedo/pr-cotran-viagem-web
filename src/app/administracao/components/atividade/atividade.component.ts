@@ -28,6 +28,7 @@ export class AtividadeComponent implements OnInit {
     this.formAtividade = this.createForm();
   }
   atividades: Atividade[];
+  p: number = 1;
   
   ngOnInit(): void {
     this.listarAtividades();

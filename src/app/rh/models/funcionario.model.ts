@@ -25,6 +25,7 @@ export class Funcionario{
 	inscricaoTitulo:String;
 	zonaTitulo:number;
 	secaoTitulo:number;
+    status: boolean;
 
 	
 }

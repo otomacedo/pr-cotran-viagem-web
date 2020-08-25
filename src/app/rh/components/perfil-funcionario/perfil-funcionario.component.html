@@ -1,0 +1,154 @@
+
+<body>
+    <form>
+        <div class="card">
+            <div class="card-header">
+                <span *ngIf="rh.funcionario.status" style="color: green;">
+                    <fa-icon [icon]="faCircle"></fa-icon>
+                </span> 
+                <span *ngIf="!rh.funcionario.status" style="color: red;">
+                    <fa-icon [icon]="faCircle"></fa-icon>
+                </span> 
+                
+                
+                Perfil do Funcionário
+            </div>
+            <div class="form-row">
+                <div class=" col-sm-3">
+                    <div class="col-sm-12">
+                        <div class="card-body">
+                            <div class="card" style="width: 12rem;">
+                                <div class="card-body">
+                                    <img class="card-img-top" src="../../../../assets/perfil.jpg"
+                                        alt="Imagem de capa do card">
+                                </div>
+                            </div>
+                            <div>
+                            <label>&nbsp;{{rh.funcionario.nome}}</label>
+                            </div>
+                            <div>
+                            <strong>Nome de Guerra:</strong><label>&nbsp;{{rh.funcionario.nomeGuerra}}</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <br>
+                    <div>
+                        <strong>Endereço:</strong>&nbsp;<label> {{rh.funcionario.endereco}}</label>
+                    </div>
+                    <div>
+                        <strong>Cidade:</strong>&nbsp;<label> {{rh.funcionario.cidade}}</label>
+                    </div>
+                    <div>
+                        <strong>Bairro:</strong>&nbsp;<label> {{rh.funcionario.bairro}}</label>
+                    </div>
+                    <div>
+                        <strong>Data de Nascimento:</strong>&nbsp;<label> {{rh.funcionario.dtNascimento | date: 'dd/MM/yyyy'}}</label>
+                    </div>
+                    <div>
+                        <strong>Ramal:</strong>&nbsp;<label> {{rh.funcionario.ramal}}</label>
+                    </div>
+                    <div>
+                        <strong>Telefone:</strong>&nbsp;<label> {{rh.funcionario.telefone}}</label>
+                    </div>
+                    <div>
+                        <strong>RG:</strong>&nbsp;<label> {{rh.funcionario.rg}}</label>
+                    </div>
+                    <div>
+                        <strong>Orgão Expedidor do RG:</strong>&nbsp;<label> {{rh.funcionario.orgaoExpedidorRg}}</label>
+                    </div>
+                    <div>
+                        <strong>Data de Expedição do RG:</strong>&nbsp;<label> {{rh.funcionario.dtExpedicaoRg | date: 'dd/MM/yyyy'}}</label>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <br>
+                    <div>
+                        <strong>CPF:</strong>&nbsp;<label> {{rh.funcionario.cpf}}</label>
+                    </div>
+                    <div>
+                        <strong>CNH:</strong>&nbsp;<label> {{rh.funcionario.cnh}}</label>
+                    </div>
+                    <div>
+                        <strong>Validade CNH:</strong>&nbsp;<label> {{rh.funcionario.validadeCnh | date: 'dd/MM/yyyy'}}</label>
+                    </div>
+                    <div>
+                        <strong>Categoria CNH:</strong>&nbsp;<label> {{rh.funcionario.categoriaCnh}}</label>
+                    </div>
+                    <div>
+                        <strong>Número Passaporte:</strong>&nbsp;<label> {{rh.funcionario.numPassaporte}}</label>
+                    </div>
+                    <div>
+                        <strong>Validade Passaporte:</strong>&nbsp;<label> {{rh.funcionario.validadePassaporte | date: 'dd/MM/yyyy'}}</label>
+                    </div>
+                    <div>
+                        <strong>Data de Expedição Passaporte:</strong>&nbsp;<label> {{rh.funcionario.dtExpedicaoPassaporte | date: 'dd/MM/yyyy'}}</label>
+                    </div>
+                    <div>
+                        <strong>Inscrição Titulo de Eleitor:</strong>&nbsp;<label> {{rh.funcionario.inscricaoTitulo}}</label>
+                    </div>
+                    <div>
+                        <strong>Zona do Titulo:</strong>&nbsp;<label> {{rh.funcionario.zonaTitulo}}</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <!-- #################################################################################################################### !--->
+        <div class="card">
+        <div class="form-row">
+            <div class="col-sm-6">
+                <div class="col-sm-12">
+                    <strong> <label>Atividade Desempenhada: </label></strong>
+                    {{rh.atividade.descricao}}
+                </div>
+                <div class="col-sm-12">
+                    <strong><label>Departamento: </label></strong>
+                    {{rh.departamento.descricao}}
+                </div>
+                <div class="col-sm-12">
+                    <strong><label>Setor: </label></strong>
+                    {{rh.setor.descricao}}
+                </div>
+                <div class="col-sm-12">
+                    <strong><label>Matricula PR: </label></strong>
+                    {{rh.matriculaPr}}
+                </div>
+                <div class="col-sm-12">
+                    <strong><label>Matricula SIAPE: </label></strong>
+                    {{rh.matriculaSiape}}
+                </div>
+            </div>
+        <!--#######################################################################################################################-->
+            <div class="col-sm-6">
+                <div class="col-sm-12">
+                   <strong> <label>Graduação: </label></strong>
+                    {{rh.graduacao.descricao}}
+                </div>
+                <div class="col-sm-12">
+                    <strong><label>Gratificação: </label></strong>
+                    {{rh.gratificacao.descricao}}
+                </div>
+                <div class="col-sm-12">
+                    <strong><label>Tipo da Gratificação:</label></strong>
+                    {{rh.tipo.tipo}}
+                </div>
+                <div class="col-sm-12">
+                    <strong><label>Data de Posse na Presidência: </label></strong>
+                    {{rh.possePr | date: 'dd/MM/yyyy'}}
+                </div>
+                <div class="col-sm-12">
+                    <strong><label>Orgão de Origem: </label></strong>
+                    {{rh.orgaoOrigem}}
+                </div>
+            </div>
+        </div>
+        </div>
+        <br>
+        <button class=" btn btn-success" (click)="editarRh()">Editar</button>
+        &nbsp;
+        <button class=" btn btn-primary" (click)="marcarFerias(rh)">Marcar Férias</button>
+        
+    </form>
+</body>

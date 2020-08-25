@@ -1,52 +1,66 @@
-<nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item active">
-      <a href="/inicio"> Home </a></li>
-    <li class="breadcrumb-item active">
-      Funcionários</li>
-  </ol>
-</nav>
-<div class="col-sm-12">
-  <label>Pesquisar:</label>
-  <div class="input-group mb-3">
-    <input type="text" class="form-control" placeholder="Pesquisa" aria-label="Recipient's username"
-      aria-describedby="basic-addon2">
-      <select class="form-control" id="exampleFormControlSelect1">
-        <option>CPF</option>
-        <option>RG</option>
-        <option>Nome de Guerra</option>
-        
-      </select>
-    <div class="input-group-append">
-      <button class="btn btn-outline-secondary" type="button" class="btn btn-primary">Pesquisar</button>
+
+<form [formGroup]="formFiltro">
+<div class="card">
+  <div class="card-header">
+    Funcionários
+  </div>
+  <div class="form-row">
+    <div class="col-sm-5">
+      <div class="col-sm-12">
+        <label>Pesquisar:</label>
+      <input type="text" class="form-control" formControlName="valor">
+    </div>
+    </div>
+    <div class="col-sm-5">
+      <div class="col-sm-12">
+        <label>Por:</label>
+        <select class="form-control" formControlName="tipo">
+          <option>Selecione</option>
+          <option *ngFor="let filtro of tipos" [(value)]="filtro.tipo">{{filtro.valor}}</option>       
+        </select>
+      </div>
+    </div>
+    <div class="col-sm-2">
+      <div class="col-sm-12">
+    <button class="btn btn-primary" (click)="filtrar()" style="margin-top: 34px;" >Filtrar </button>
+      </div>
     </div>
   </div>
+
+
+  <br>
+  <table class="table table-striped">
+    <br>
+    <thead>
+      <tr>
+        <th scope="col">Código</th>
+        <th scope="col">Nome</th>
+        <th scope="col">Nome Guerra</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let funcionario of funcionarios | paginate: {itemsPerPage: 2, currentPage: p}">
+        <td>{{funcionario.idFuncionario}}
+        </td>
+        <td>{{ funcionario.nome }}</td>
+        <td>{{ funcionario.nomeGuerra }}</td>
+        <td>
+          <button class=" btn btn-primary" (click)="editarFuncionario(funcionario)">Editar</button>&nbsp;
+          <button class=" btn btn-outline-primary" (click)="gerenciarFuncionario(funcionario)">Gerenciar</button>
+        </td>
+      </tr>
+      <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    </tbody>
+  </table>
 </div>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th scope="col">Código</th>
-      <th scope="col">Nome</th>
-      <th scope="col">Nome Guerra</th>
-      <th scope="col"></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let funcionario of funcionarios">
-      <td>{{funcionario.idFuncionario}}
-      </td>
-      <td>{{ funcionario.nome }}</td>
-      <td>{{ funcionario.nomeGuerra }}</td>
-      <td>
-        <button class=" btn btn-danger" (click)="excluirFuncionario(funcionario)">Excluir</button>&nbsp;
-        <button class=" btn btn-primary" (click)="editarFuncionario(funcionario)">Editar</button>&nbsp;
-        <button class=" btn btn-outline-primary" (click)="gerenciarFuncionario(funcionario)">Gerenciar</button>
-      </td>
-    </tr>
-  </tbody>
-</table>
-<button class=" btn btn-primary" (click)="listarFuncionarios()">Listar</button>
+<br>
+</form>
+
 &nbsp;
-<button class="btn btn-primary" (click)="cadastrarFuncionario()">Cadastrar</button>
-&nbsp;
-<button class="btn btn-primary" (click)="voltar()">Voltar</button>
+<button class="btn btn-success" (click)="cadastrarFuncionario()">Cadastrar</button>
+<button class=" btn btn-outline-danger" (click)="listarFuncionariosInativos()" style="float: right;">Funcionários
+  Inativos</button>
+  <span style="float: right;">&nbsp;</span>
+&nbsp; <button class=" btn btn-primary" style="float:right" (click)="listarFuncionarios()">Funcionários Ativos</button>&nbsp;
+

@@ -1,45 +1,37 @@
-<nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item active">Home</li>
-    </ol>
-</nav>
+<br>
 <div class="form-row">
     &nbsp;&nbsp;
-    <div class="card border-primary mb-2" style="max-width: 17rem;">
-        <div class="card-header">Funcionário</div>
-        <div class="card-body text-primary">
-            <a (click)="funcionarios()" style="cursor:pointer;" >
-                <h5>Funcionarios </h5></a>
-                <p class="card-text">Funcionalidade para o controle dos funcionários
+    <div (click)="funcionarios()" class="card border-dark mb-2" style="max-width: 17rem; cursor: pointer;">
+        <div class="card-header"> <fa-icon [icon]="faUser"></fa-icon> Funcionário </div>
+        <div class="card-body text-dark">
+                <p class="card-text">Controle dos funcionários
                     do COTRAN, nela é possivel Cadastrar, Editar, Excluir e Gerenciar.
                 </p>
             <h5 class="card-title"></h5>
         </div>
+    </div> 
+    &nbsp;
+    <div (click)="administracao()" class="card border-dark mb-2" style="max-width: 17rem; cursor: pointer;">
+        <div class="card-header"> <fa-icon [icon]="faCogs"></fa-icon> Administração</div>
+        <div class="card-body text-dark">
+            
+            <p class="card-text">Administração dos setores do COTRAN. </p>
+        </div>
     </div>
     &nbsp;
-    <div class="card border-primary mb-2" style="max-width: 17rem;">
-        <div class="card-header">Administração</div>
-        <div class="card-body text-primary">
-            <a href="/administracao" >
-            <h5 class="card-title">Administração</h5></a>
+    <div (click)="viagem()" class="card border-dark mb-2" style="max-width: 17rem; cursor: pointer;">
+        <div class="card-header"> <fa-icon [icon]="faPlane"></fa-icon> Viagem</div>
+        <div class="card-body text-dark">
+            
             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
                 content.</p>
         </div>
     </div>
     &nbsp;
-    <div class="card border-primary mb-2" style="max-width: 17rem;">
-        <div class="card-header">Header</div>
-        <div class="card-body text-primary">
-            <h5 class="card-title">Primary card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-                content.</p>
-        </div>
-    </div>
-    &nbsp;
-    <div class="card border-primary mb-2" style="max-width: 17rem;">
-        <div class="card-header">Header</div>
-        <div class="card-body text-primary">
-            <h5 class="card-title">Primary card title</h5>
+    <div (click)="relatorio()" class="card border-dark mb-2" style="max-width: 17rem; cursor: pointer;">
+        <div class="card-header"> <fa-icon [icon]="chart"></fa-icon> Relatório</div>
+        <div class="card-body text-dark">
+            
             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
                 content.</p>
         </div>

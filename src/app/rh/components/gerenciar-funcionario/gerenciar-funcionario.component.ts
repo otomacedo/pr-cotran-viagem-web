@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
-import { rhState, selectFuncionario, selectModoTela } from '../../reducers/rh.reducer';
+import { rhState, selectFuncionario, selectModoTela, selectRh } from '../../reducers/rh.reducer';
 import { RhService } from '../../rh.service';
 import { Store, select } from '@ngrx/store';
 import { Router } from '@angular/router';
@@ -14,6 +14,7 @@ import { Departamento } from '../../models/departamento.model';
 import { Setor } from '../../models/setor.model';
 import { Graduacao } from '../../models/graduacao.model';
 import { TipoGratificacao } from '../../models/tipoGratificacao.model';
+import { AddRh } from '../../actions/rh.actions';
 
 @Component({
   selector: 'app-gerenciar-funcionario',
@@ -37,6 +38,7 @@ export class GerenciarFuncionarioComponent implements OnInit {
   gratificacaoDTO: Gratificacao = new Gratificacao();
   setorDTO: Setor = new Setor();
   graduacaoDTO: Graduacao = new Graduacao();
+  tipoGratificacaoDTO: TipoGratificacao = new TipoGratificacao();
 
   constructor (
     private store: Store<rhState>,
@@ -55,18 +57,13 @@ export class GerenciarFuncionarioComponent implements OnInit {
   ngOnInit(): void {
     this.carregarModoTela()
     this.carregarTipo();
-    this.store.pipe(select(selectFuncionario)).subscribe(
-      funcionario => {
-        this.service.consultarPorFuncionario(funcionario.idFuncionario).subscribe(
-          rh=>{
+    this.store.pipe(select(selectRh)).subscribe(
+      rh => {
             if(rh.idRh != null){
               this.rh = rh;
               this.preencheForm();
             }
-              
-          }
-        )
-        this.rh.funcionario = funcionario;
+        this.rh.funcionario = rh.funcionario;
       }
     );  
   }
@@ -114,8 +111,8 @@ export class GerenciarFuncionarioComponent implements OnInit {
     this.formRh.controls.setor.setValue(this.validarId(this.rh.setor.idSetor));
     this.formRh.controls.graduacao.setValue(this.validarId(this.rh.graduacao.idGraduacao)); 
     this.formRh.controls.gratificacao.setValue(this.validarId(this.rh.gratificacao.idGratificacao));
-    this.formRh.controls.tipoGratificacoes.setValue(this.validarId(this.rh.gratificacao.tipoGratificacoes));
-    this.formRh.controls.possePr.setValue(this.validarId(this.rh.possePr));
+    this.formRh.controls.tipoGratificacoes.setValue(this.validarId(this.rh.tipo.idTipoGratificacao));
+    this.formRh.controls.possePr.setValue(this.validarId(this.shared.formatarData(this.rh.possePr)));
     this.formRh.controls.matriculaSiape.setValue(this.validarId(this.rh.matriculaSiape));
     this.formRh.controls.matriculaPr.setValue(this.validarId(this.rh.matriculaPr));
     this.formRh.controls.orgaoOrigem.setValue(this.validarId(this.rh.orgaoOrigem));
@@ -132,6 +129,7 @@ export class GerenciarFuncionarioComponent implements OnInit {
     rhDTO.graduacao = this.graduacaoDTO;
     rhDTO.gratificacao = this.gratificacaoDTO;
     rhDTO.setor = this.setorDTO;
+    rhDTO.tipo = this.tipoGratificacaoDTO;
     rhDTO.matriculaPr = this.formRh.controls.matriculaPr.value;
     rhDTO.matriculaSiape = this.formRh.controls.matriculaSiape.value;
     rhDTO.orgaoOrigem = this.formRh.controls.orgaoOrigem.value;
@@ -173,11 +171,19 @@ export class GerenciarFuncionarioComponent implements OnInit {
 
 
   voltar(){
-    return this.router.navigate(['/','funcionarios']);
+    this.service.consultarPorFuncionario(this.rh.funcionario.idFuncionario).subscribe(
+      r=>{
+          this.store.dispatch(new AddRh(r));
+          return this.router.navigate(['/','perfilFuncionario']);          
+      }
+    )
   }
 
   private carregarTipo(){
-    this.formRh.controls.tipoGratificacoes.disable()
+    this.formRh.controls.tipoGratificacoes.value
+
+    if(this.formRh.controls.tipoGratificacoes.value == undefined)
+        this.formRh.controls.tipoGratificacoes.disable()
     this.formRh.controls.gratificacao.valueChanges.subscribe(v=>{
       this.gratificacao.forEach(g=>{
         if(g.idGratificacao == v){
@@ -205,9 +211,32 @@ export class GerenciarFuncionarioComponent implements OnInit {
     this.graduacaoDTO.idGraduacao = this.formRh.controls.graduacao.value;
     this.gratificacaoDTO.idGratificacao = this.formRh.controls.gratificacao.value;
     this.setorDTO.idSetor = this.formRh.controls.setor.value;
+    this.tipoGratificacaoDTO.idTipoGratificacao = this.formRh.controls.tipoGratificacoes.value;
   }
 
   validarId(id){
     return id === undefined ? "": id;
+  }
+
+  inativar(){
+   var funcionario = new Funcionario();
+   funcionario.idFuncionario = this.rh.funcionario.idFuncionario
+   funcionario.status = false;
+   return this.atualizarStatus(funcionario);
+  }
+
+  ativar(){
+    var funcionario = new Funcionario();
+    funcionario.idFuncionario = this.rh.funcionario.idFuncionario
+    funcionario.status = true;
+    return this.atualizarStatus(funcionario);
+    
+  }
+
+  private atualizarStatus(funcionario:Funcionario){
+    return this.service.atualizarStatusFuncionario(funcionario).subscribe(data => {
+      this.shared.mensagemSucesso(data["mensagem"]);
+      this.voltar();
+    })
   }
 }

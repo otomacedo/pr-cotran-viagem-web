@@ -5,6 +5,7 @@ import { RhService } from '../rh/rh.service';
 import { Router } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
 import { SharedService } from '../Shared/shared.service';
+import { faCogs } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-administracao',
@@ -12,7 +13,7 @@ import { SharedService } from '../Shared/shared.service';
   styleUrls: ['./administracao.component.scss']
 })
 export class AdministracaoComponent implements OnInit {
-
+  faCogs = faCogs;
   constructor(
     private store: Store<rhState>,
     private service: RhService,
@@ -26,4 +27,23 @@ export class AdministracaoComponent implements OnInit {
   voltar(){
     return this.router.navigate(['/','inicio']);
   }
+  gratificacao(){
+    return this.router.navigate(['/','gratificacao'])
+  }
+  setor(){
+    return this.router.navigate(['/','setor'])
+  }
+  departamento(){
+    return this.router.navigate(['/','departamento'])
+  }
+  atividade(){
+    return this.router.navigate(['/','atividade'])
+  }
+  tipoGratificacao(){
+    return this.router.navigate(['/','tipoGratificacao'])
+  }
+  graduacao(){
+    return this.router.navigate(['/','graduacao'])
+  }
+
 }

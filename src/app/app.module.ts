@@ -17,8 +17,6 @@ import { HomeComponent } from './home/home.component';
 import { StoreModule } from '@ngrx/store';
 import * as fromRh from 'src/app/rh/reducers/rh.reducer';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
- 
-import { NgxLoadingModule } from 'ngx-loading';
 import { ToastrModule } from 'ngx-toastr';
 import { SharedService } from './Shared/shared.service';
 import { DatePipe } from '@angular/common';
@@ -30,6 +28,11 @@ import { SetorComponent } from './administracao/components/setor/setor.component
 import { GraduacaoComponent } from './administracao/components/graduacao/graduacao.component';
 import { GratificacaoComponent } from './administracao/components/gratificacao/gratificacao.component';
 import { TipoGratificacaoComponent } from './administracao/components/tipo-gratificacao/tipo-gratificacao.component';
+import { PerfilFuncionarioComponent } from './rh/components/perfil-funcionario/perfil-funcionario.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { LoginComponent } from './login/login.component';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import {NgxPaginationModule} from 'ngx-pagination';
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,7 +49,9 @@ import { TipoGratificacaoComponent } from './administracao/components/tipo-grati
     SetorComponent,
     GraduacaoComponent,
     GratificacaoComponent,
-    TipoGratificacaoComponent
+    TipoGratificacaoComponent,
+    PerfilFuncionarioComponent,
+    LoginComponent
   ],
   imports: [
     BlockUIModule.forRoot(),
@@ -56,15 +61,19 @@ import { TipoGratificacaoComponent } from './administracao/components/tipo-grati
     NgbModule,
     Interceptor,
     FormsModule,
+    NgxDatatableModule,
+    FontAwesomeModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
     SharedService,
     ToastrModule.forRoot(),
     StoreModule.forRoot({}, {}),
     StoreModule.forFeature('rh', fromRh.reducer),
-    BlockUIModule.forRoot({})
+    BlockUIModule.forRoot({}),
+    NgxPaginationModule,
+    BrowserModule
   ],
   providers: [RhService, DatePipe],
   bootstrap: [AppComponent]
-}) 
+})  
 export class AppModule { }
