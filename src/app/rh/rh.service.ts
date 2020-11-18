@@ -114,7 +114,9 @@ export class RhService {
    public listarGratificacao(){
       return this.http.get<Gratificacao[]>(environment.url+'administracao/listarGratificacao',httpOptions)
    }
-
+   public listarTercerizados(){
+      return this.http.get<Rh[]>(environment.url+'rh/listarTercerizados',httpOptions)
+   }
    public editarRh(rh: Rh){
       return this.http.put<Rh>(`${environment.url}`+'rh/editarRh',rh,httpOptions);
    }

@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { rhState, selectFuncionario, selectModoTela, selectRh } from '../../reducers/rh.reducer';
 import { RhService } from '../../rh.service';
 import { Store, select } from '@ngrx/store';
@@ -69,6 +69,7 @@ export class GerenciarFuncionarioComponent implements OnInit {
   }
 
   salvarRh(){
+    this.converterCheckbox();
     return this.service.salvarRh(this.rhDTO()).subscribe(data=>{
       this.shared.mensagemSucesso(data["mensagem"]);
 
@@ -82,26 +83,31 @@ export class GerenciarFuncionarioComponent implements OnInit {
   }
 
   incluirEditar(){
-    if(this.rh.idRh == null)
-       this.salvarRh();
-    else
-       this.editarRh();
+    if(this.formRh.valid){
+      if(this.rh.idRh == null)
+        this.salvarRh();
+      else
+        this.editarRh();
+    }else
+      this.shared.mensagemErro("Formulário contém erros!");
   }
 
   creatForm(){
     return this.fb.group ({
       idRh: new FormControl(''),
       funcionario : new FormControl(''),
-      departamento : new FormControl(''),
-      atividade :new FormControl(''),
-      setor: new FormControl(''),
-      graduacao: new FormControl(''),
-      gratificacao: new FormControl(''),
-      tipoGratificacoes: new FormControl(''),
-      possePr: new FormControl(''),
-      matriculaSiape: new FormControl(''),
-      orgaoOrigem: new FormControl(''),
-      matriculaPr: new FormControl('')    
+      departamento : new FormControl('',Validators.required),
+      atividade :new FormControl('',Validators.required),
+      setor: new FormControl('',Validators.required),
+      graduacao: new FormControl('',Validators.required),
+      gratificacao: new FormControl('',Validators.required),
+      tipoGratificacoes: new FormControl('',Validators.required),
+      possePr: new FormControl('',Validators.required),
+      matriculaSiape: new FormControl('',Validators.required),
+      orgaoOrigem: new FormControl('',Validators.required),
+      matriculaPr: new FormControl('',Validators.required),
+      tercerizado: new FormControl(''),
+      observacao: new FormControl('')   
     })
   }
   public preencheForm(){
@@ -116,6 +122,8 @@ export class GerenciarFuncionarioComponent implements OnInit {
     this.formRh.controls.matriculaSiape.setValue(this.validarId(this.rh.matriculaSiape));
     this.formRh.controls.matriculaPr.setValue(this.validarId(this.rh.matriculaPr));
     this.formRh.controls.orgaoOrigem.setValue(this.validarId(this.rh.orgaoOrigem));
+    this.formRh.controls.tercerizado.setValue(this.validarId(this.rh.tercerizado));
+    this.formRh.controls.observacao.setValue(this.validarId(this.rh.observacao));
 
   }
 
@@ -134,6 +142,8 @@ export class GerenciarFuncionarioComponent implements OnInit {
     rhDTO.matriculaSiape = this.formRh.controls.matriculaSiape.value;
     rhDTO.orgaoOrigem = this.formRh.controls.orgaoOrigem.value;
     rhDTO.possePr = this.formRh.controls.possePr.value;
+    rhDTO.tercerizado = this.formRh.controls.tercerizado.value;
+    rhDTO.observacao = this.formRh.controls.observacao.value;
     return rhDTO;
   }
 
@@ -238,5 +248,12 @@ export class GerenciarFuncionarioComponent implements OnInit {
       this.shared.mensagemSucesso(data["mensagem"]);
       this.voltar();
     })
+  }
+
+  converterCheckbox(){
+    if (this.formRh.controls.tercerizado.value == "0" ){
+          this.formRh.controls.tercerizado.setValue(false)
+    }
+      this.formRh.controls.tercerizado.setValue(true)
   }
 }

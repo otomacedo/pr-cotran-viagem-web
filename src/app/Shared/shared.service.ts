@@ -1,6 +1,7 @@
 import { ToastrService } from 'ngx-toastr';
 import { NgModule } from '@angular/core';
 import { DatePipe } from '@angular/common';
+import { FormGroup } from '@angular/forms';
 
 @NgModule()
 export class SharedService{
@@ -26,5 +27,18 @@ export class SharedService{
 
     formatarDataBR(data: Date): string{
         return this.d.transform(data,"dd-MM-yyyy");
+    }
+
+   /**
+     * Verifica se o campo do formulário é válido
+     * @param form
+     * @param formControlName
+     * @author romario.portela
+     */
+    isFormValid(form:FormGroup, formControlName?:string) : Boolean{
+        Object.keys(form.controls).forEach(valor=>
+            form.controls[valor].markAsTouched()
+           )
+        return form.controls[formControlName].valid
     }
     }

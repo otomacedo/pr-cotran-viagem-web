@@ -1,3 +1,5 @@
+import { FeriasMarcadas } from './feriasMarcadas.model';
+
 export class Ferias{
     constructor(){
 
@@ -6,4 +8,5 @@ export class Ferias{
     idFerias: number;
     inicio: Date;
     fim: Date;
+   
 }

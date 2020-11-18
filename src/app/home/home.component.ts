@@ -26,7 +26,7 @@ export class HomeComponent implements OnInit {
     return this.router.navigate(['/','administracao'])
   }
   relatorio(){
-    return this.router.navigate(['/','administracao'])
+    return this.router.navigate(['/','relatorio'])
   }
   ngOnInit(): void {
   }

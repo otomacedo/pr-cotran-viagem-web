@@ -33,6 +33,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { LoginComponent } from './login/login.component';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import {NgxPaginationModule} from 'ngx-pagination';
+import { RelatorioComponent } from './relatorio/relatorio.component';
+import { RelatorioFeriasComponent } from './relatorio/relatorio-ferias/relatorio-ferias.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -51,7 +53,9 @@ import {NgxPaginationModule} from 'ngx-pagination';
     GratificacaoComponent,
     TipoGratificacaoComponent,
     PerfilFuncionarioComponent,
-    LoginComponent
+    LoginComponent,
+    RelatorioComponent,
+    RelatorioFeriasComponent
   ],
   imports: [
     BlockUIModule.forRoot(),

@@ -34,8 +34,8 @@ export class AppComponent {
   viagens(){
     return this.router.navigate(['/','inicio'])
   }
-  relatorios(){
-    return this.router.navigate(['/','inicio'])
+  relatorio(){
+    return this.router.navigate(['/','relatorio'])
   }
 
 }

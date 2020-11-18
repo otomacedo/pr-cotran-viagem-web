@@ -50,12 +50,15 @@ export class CadastrarFuncionarioComponent implements OnInit, OnDestroy {
   }
 
   public salvar(){
-    if(this.modoTela == 'CADASTRAR'){
-      this.cadastrarFuncionario();
-    }
-    else if( this.modoTela == 'EDITAR')
-      this.editarFuncionario();
-    
+    if(this.formFuncionario.valid){
+      if
+        (this.modoTela == 'CADASTRAR')
+        this.cadastrarFuncionario();
+      else  
+        (this.modoTela == 'EDITAR')
+        this.editarFuncionario();
+  } else 
+      this.shared.mensagemErro("Formulário contém erros!")
   }
 
 
@@ -81,27 +84,27 @@ export class CadastrarFuncionarioComponent implements OnInit, OnDestroy {
   private createForm(){
     return  this.fb.group({
       idFuncionario: new FormControl(''),
-      nome: new FormControl(Validators.maxLength(3) ),
-      nomeGuerra: new FormControl(''),
-      endereco: new FormControl(''),
-      cidade: new FormControl(''),
-      bairro: new FormControl(''),
-      dtNascimento: new FormControl(''),
-      ramal: new FormControl(''),
-      telefone: new FormControl(''),
-      rg: new FormControl(''),
-      orgaoExpedidorRg: new FormControl(''),
-      dtExpedicaoRg: new FormControl(''),
-      cpf: new FormControl(''),
+      nome: new FormControl('',Validators.required),
+      nomeGuerra: new FormControl('',Validators.required),
+      endereco: new FormControl('',Validators.required),
+      cidade: new FormControl('',Validators.required),
+      bairro: new FormControl('',Validators.required),
+      dtNascimento: new FormControl('',Validators.required),
+      ramal: new FormControl('',Validators.required),
+      telefone: new FormControl('',Validators.required),
+      rg: new FormControl('',Validators.required),
+      orgaoExpedidorRg: new FormControl('',Validators.required),
+      dtExpedicaoRg: new FormControl('',Validators.required),
+      cpf: new FormControl('',Validators.required),
       cnh: new FormControl(''),
       validadeCnh: new FormControl(''),
       categoriaCnh: new FormControl(''),
       numPassaporte: new FormControl(''),
       validadePassaporte: new FormControl(''),
       dtExpedicaoPassaporte: new FormControl(''),
-      inscricaoTitulo: new FormControl(''),
-      zonaTitulo: new FormControl(''),
-      secaoTitulo: new FormControl(''),
+      inscricaoTitulo: new FormControl('',Validators.required),
+      zonaTitulo: new FormControl('',Validators.required),
+      secaoTitulo: new FormControl('',Validators.required),
       status: new FormControl(true)
 
     })

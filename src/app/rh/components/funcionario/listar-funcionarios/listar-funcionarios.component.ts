@@ -34,6 +34,7 @@ export class ListarFuncionariosComponent implements OnInit {
 
 
   funcionarios: Funcionario[];
+  rhs: Rh[];
   p: number = 1;
 
   ngOnInit(): void {
@@ -81,6 +82,16 @@ export class ListarFuncionariosComponent implements OnInit {
     this.service.listarFuncionariosInativos().subscribe(dados => {
       this.funcionarios = dados;
     });
+  }
+
+  listarTercerizados(){
+    this.funcionarios = []
+    this.service.listarTercerizados().subscribe(dados => {
+      this.rhs = dados;
+      this.rhs.forEach(rh =>{
+        this.funcionarios.push(rh.funcionario)
+      })
+    })
   }
   gerenciarFuncionario(funcionario : Funcionario){
     

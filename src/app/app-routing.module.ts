@@ -14,6 +14,8 @@ import { GraduacaoComponent } from './administracao/components/graduacao/graduac
 import { PerfilFuncionarioComponent } from './rh/components/perfil-funcionario/perfil-funcionario.component';
 import { FeriasComponent } from './rh/components/ferias/ferias.component';
 import { LoginComponent } from './login/login.component';
+import { RelatorioComponent } from './relatorio/relatorio.component';
+import { RelatorioFeriasComponent } from './relatorio/relatorio-ferias/relatorio-ferias.component';
 
 const routes: Routes = [
   {path: 'funcionarios', component: ListarFuncionariosComponent},
@@ -29,7 +31,9 @@ const routes: Routes = [
   {path: 'graduacao', component: GraduacaoComponent},
   {path: 'perfilFuncionario', component: PerfilFuncionarioComponent},
   {path: 'ferias',component: FeriasComponent},
-  {path: 'login', component: LoginComponent}
+  {path: 'login', component: LoginComponent},
+  {path: 'relatorio', component: RelatorioComponent},
+  {path: 'relatorio-ferias', component: RelatorioFeriasComponent}
 ];
 
 @NgModule({

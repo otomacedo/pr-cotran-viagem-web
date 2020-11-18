@@ -59,8 +59,12 @@
 
 &nbsp;
 <button class="btn btn-success" (click)="cadastrarFuncionario()">Cadastrar</button>
-<button class=" btn btn-outline-danger" (click)="listarFuncionariosInativos()" style="float: right;">Funcionários
-  Inativos</button>
-  <span style="float: right;">&nbsp;</span>
-&nbsp; <button class=" btn btn-primary" style="float:right" (click)="listarFuncionarios()">Funcionários Ativos</button>&nbsp;
+
+ 
+  <div class="col-sm-0" style="float:right">
+    <button class=" btn btn-outline-danger" (click)="listarFuncionariosInativos()">Funcionários
+      Inativos</button>
+    &nbsp; <button class=" btn btn-primary"  (click)="listarFuncionarios()">Funcionários Ativos</button>&nbsp;
+    <button class=" btn btn-primary" (click)="listarTercerizados()">Funcionários Tercerizados</button>
+  </div>
 

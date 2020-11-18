@@ -28,7 +28,7 @@
 
         <div class="col-sm-6">
           <label for="exampleFormControlSelect1">Atividade Desempenhada:</label>
-          <select class="form-control" formControlName="atividade" id="exampleFormControlSelect1">
+          <select class="form-control" formControlName="atividade" >
             <option value="">Selecione</option>
             <option *ngFor="let a of atividade" [value]="a.idAtividade">{{a.descricao}}</option>
           </select>
@@ -36,7 +36,7 @@
 
         <div class="col-sm-6">
           <label for="exampleFormControlSelect1">Departamento:</label>
-          <select class="form-control" formControlName="departamento" id="exampleFormControlSelect1">
+          <select class="form-control" formControlName="departamento" >
             <option value="">Selecione</option>
             <option *ngFor="let d of departamento" [value]="d.idDepartamento">{{d.descricao}}</option>
           </select>
@@ -45,7 +45,7 @@
 
         <div class="col-sm-6">
           <label for="exampleFormControlSelect1">Graduação</label>
-          <select class="form-control" formControlName="graduacao" id="exampleFormControlSelect1">
+          <select class="form-control" formControlName="graduacao" >
             <option value="">Selecione</option>
             <option *ngFor="let g of graduacao" [value]="g.idGraduacao">{{g.descricao}} </option>
           </select>
@@ -53,7 +53,7 @@
         <!---#######-->
         <div class="col-sm-6">
           <label for="exampleFormControlSelect1">Setor</label>
-          <select class="form-control" formControlName="setor" id="exampleFormControlSelect1">
+          <select class="form-control" formControlName="setor" >
             <option value="">Selecione</option>
             <option *ngFor="let s of setor" [value]="s.idSetor">{{s.descricao}}</option>
           </select>
@@ -61,7 +61,7 @@
 
         <div class="col-sm-6">
           <label for="exampleFormControlSelect1">Gratificação</label>
-          <select class="form-control" formControlName="gratificacao" id="exampleFormControlSelect1">
+          <select class="form-control" formControlName="gratificacao" >
             <option value="">Selecione</option>
             <option *ngFor="let g of gratificacao" [value]="g.idGratificacao">{{g.descricao}}</option>
           </select>
@@ -75,6 +75,17 @@
             <option *ngFor="let t of tipoGratificacao" [value]="t.idTipoGratificacao">{{t.tipo}}</option>
           </select>
         </div>
+        
+        <div class="col-sm-9">
+          <label for="exampleFormControlTextarea1">Observações do Funcionário:</label>
+          <textarea class="form-control" formControlName="observacao" rows="2"></textarea>
+        </div>
+        <div clas="col-sm-3" style="text-align-last:center;">
+          <br>
+          &nbsp;&nbsp;&nbsp;
+            <input class="form-check-input"  formControlName="tercerizado" type="checkbox" id="tercerizado"/>
+            <label class="form-check-label" for="tercerizado">Tercerizado</label>
+          </div>
       </div>
     </div>
   </div>
