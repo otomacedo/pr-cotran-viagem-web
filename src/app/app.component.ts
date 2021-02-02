@@ -38,4 +38,7 @@ export class AppComponent {
     return this.router.navigate(['/','relatorio'])
   }
 
+  sair(){
+    return this.router.navigate(['/','login'])
+  }
 }

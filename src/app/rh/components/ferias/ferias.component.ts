@@ -9,7 +9,10 @@ import { Rh } from '../../models/rh.model';
 import { NgbDate, NgbCalendar, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { Ferias } from '../../models/ferias.model';
 import { Observable } from 'rxjs';
-import { faCheck } from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faEdit } from '@fortawesome/free-solid-svg-icons';
+import { FeriasMarcadas } from '../../models/feriasMarcadas.model';
+import { BlockUI, NgBlockUI } from 'ng-block-ui';
+import { share } from 'rxjs/operators';
 
 @Component({
   selector: 'app-ferias',
@@ -21,11 +24,26 @@ export class FeriasComponent implements OnInit {
   formFerias: FormGroup;
   rh: Rh = new Rh();
   $rh: Observable<Rh> = this.store.pipe(select(selectRh));
+  @BlockUI() blockUI: NgBlockUI;
   check = faCheck;
+  edit = faEdit;
+
   p1 : boolean;
   p2 : boolean;
   p3 : boolean;
-  marcacao :  String = ""
+
+  editButtonUm: boolean = false;
+  editButtonDois: boolean = false;
+  editButtonTres: boolean = false;
+
+  saveButtonUm: boolean = false;
+  saveButtonDois: boolean = false;
+  saveButtonTres: boolean = false;
+
+  marcacaoUm :  String = "";
+  marcacaoDois : String = "";
+  marcacaoTres : String = "";
+  feriasMarcacao: FeriasMarcadas = new FeriasMarcadas()
   constructor(
     private router: Router,
     private store: Store<rhState>,
@@ -37,27 +55,43 @@ export class FeriasComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    this.calcularDiasFerias();
+    this.formFerias.controls['qtdDiasUm'].valueChanges.subscribe(v=>{
+      this.calcularDiasFerias("Um");
+    })
+
+    this.formFerias.controls['qtdDiasDois'].valueChanges.subscribe(v=>{
+      this.calcularDiasFerias("Dois");
+    })
+
+    this.formFerias.controls['qtdDiasTres'].valueChanges.subscribe(v=>{
+      this.calcularDiasFerias("Tres");
+    })
     this.consultarRh();
     this.qtdParcelas();
   }
 
-//  salvarFerias(){
-//    if(this.formFerias.valid){
-//    this.rh.feriasMarcadas.push(this.feriasDTO());
-//   return this.service.editarRh(this.rh).subscribe(data=>{
-//    this.shared.mensagemSucesso("Férias marcadas com sucesso!");
-//    this.consultarRh()
-//   })
-//  }else
-//  this.shared.mensagemErro("Formulário contém erros!");
-//  }
+  salvarFerias(){
+    if(this.formFerias.valid){
+    this.rh.feriasMarcadas.push(this.feriasMarcacao);
+    return this.service.editarRh(this.rh).subscribe(data=>{
+    this.shared.mensagemSucesso("Férias marcadas com sucesso!");
+    this.consultarRh()
+    })
+  }else
+  this.shared.mensagemErro("Formulário contém erros!");
+  }
   creatForm(){
     return this.fb.group ({
-      qtdDias: new FormControl(''),
-      idFerias: new FormControl(''),
-      inicio : new FormControl('', Validators.required),
-      fim: new FormControl(''),
+      qtdDiasUm: new FormControl('', Validators.required),
+      inicioUm : new FormControl('', Validators.required),
+      fimUm: new FormControl(''),
+      qtdDiasDois: new FormControl('', Validators.required),
+      inicioDois : new FormControl('', Validators.required),
+      fimDois: new FormControl(''),
+      qtdDiasTres: new FormControl('', Validators.required),
+      inicioTres : new FormControl('', Validators.required),
+      fimTres: new FormControl(''),
+      
       periodos: new FormControl('1')   
     })
   }
@@ -68,10 +102,10 @@ export class FeriasComponent implements OnInit {
     this.formFerias.controls.fim.setValue(this.shared.formatarData(ferias.fim));
   }
 
-  feriasDTO (){
+  feriasDTO (periodo){
     let ferias: Ferias= new Ferias();
-    ferias.inicio= this.formFerias.controls.inicio.value;
-    ferias.fim=this.formFerias.controls.fim.value;
+    ferias.inicio= this.formFerias.controls['inicio'+periodo].value;
+    ferias.fim=this.formFerias.controls['fim'+periodo].value;
 
     return ferias;
   }
@@ -98,24 +132,42 @@ export class FeriasComponent implements OnInit {
   voltar(){
     return this.router.navigate(['/','perfilFuncionario']);
   }
-  calcularDiasFerias(){
-    this.formFerias.controls.qtdDias.valueChanges.subscribe(v=>{
-      var d: Date = new Date(this.feriasDTO().inicio);
-      d.setDate(d.getDate() + (+this.formFerias.controls.qtdDias.value + 1))
-      this.formFerias.controls.fim.setValue(this.shared.formatarData(d))
-    })
+  calcularDiasFerias(periodo){
+      var d: Date = new Date(this.feriasDTO(periodo).inicio);
+      d.setDate(d.getDate() + (+this.formFerias.controls['qtdDias'+periodo].value + 1))
+      this.formFerias.controls['fim'+periodo].setValue(this.shared.formatarData(d))
   }
 
-  salvarMarcacao(){
-    this.marcacao = '';
-    this.p2=true;
+  salvarMarcacao(periodo){
+    this.blockUI.start("Aguarde")
+    let ferias = new Ferias();
+    ferias.fim = this.formFerias.controls['fim'+periodo].value;
+    ferias.inicio = this.formFerias.controls['inicio'+periodo].value;
+    if(this.feriasMarcacao.ferias === undefined)
+      this.feriasMarcacao.ferias = new Array();
+    
+    if(periodo === 'Dois'){
+      if(this.feriasMarcacao.ferias.length == 2){
+        let f = this.feriasMarcacao.ferias[1];
+        this.feriasMarcacao.ferias.splice(1,1);
+        this.feriasMarcacao.ferias .push(ferias);
+        this.feriasMarcacao.ferias .push(f);
+      }else{
+        this.feriasMarcacao.ferias .push(ferias);
+      }
+    }else{
+      this.feriasMarcacao.ferias .push(ferias);
+    }
+    this.habilitarDesabilitar(periodo,false)
+    setTimeout(_=>{
+      this.blockUI.stop();},300)
   }
 
   qtdParcelas(){
       this.formFerias.controls.periodos.valueChanges.subscribe(
         v=>{
           if(v==2){
-            //this.p2=true;
+            this.p2=true;
             this.p3= false;
           }
           if(v==3){
@@ -129,4 +181,90 @@ export class FeriasComponent implements OnInit {
         }
       )
   }
+
+  public habilitarDesabilitar(periodo,editar){
+    if(editar){
+      this.formFerias.controls['inicio'+periodo].enable();
+      this.formFerias.controls['qtdDias'+periodo].enable();
+
+      if(periodo == "Um"){
+        this.marcacaoUm = '';
+        this.feriasMarcacao.ferias.splice(0,1);
+        console.log(this.feriasMarcacao.ferias)
+      }
+
+      if (periodo == "Dois"){
+        this.marcacaoDois = '';
+        this.feriasMarcacao.ferias.splice(1,1);
+        console.log(this.feriasMarcacao.ferias)
+      }
+
+
+      if (periodo == "Tres"){
+        this.marcacaoTres = '';
+        this.feriasMarcacao.ferias.splice(2,1);
+        console.log(this.feriasMarcacao.ferias)
+      }
+         
+
+          switch (periodo) {
+            case 'Um':
+              this.editButtonUm = false
+              break;
+            case 'Dois':
+              this.editButtonDois = false
+              break;
+            case 'Tres':
+              this.editButtonTres = false
+              break;
+            default:
+              break;
+          }
+
+    }else{
+      if(this.formFerias.controls['inicio'+periodo].value == '')
+        this.shared.mensagemErro("Início Obrigatório!")
+      else if(this.formFerias.controls['qtdDias'+periodo].value == '')
+        this.shared.mensagemErro("Período Obrigatório!")
+      else{
+        this.formFerias.controls['inicio'+periodo].disable();
+        this.formFerias.controls['qtdDias'+periodo].disable();
+  
+        if(periodo == "Um"){
+          this.marcacaoUm = 'active';
+          console.log(this.feriasMarcacao.ferias)
+        }
+        
+        if (periodo =="Dois"){
+          this.marcacaoDois = 'active';
+          console.log(this.feriasMarcacao.ferias)
+        }
+          
+        if (periodo == "Tres"){
+          this.marcacaoTres = 'active';
+          console.log(this.feriasMarcacao.ferias)
+        }
+        
+  
+          switch (periodo) {
+            case 'Um':
+              this.editButtonUm = true
+              break;
+            case 'Dois':
+              this.editButtonDois = true
+              break;
+            case 'Tres':
+              this.editButtonTres = true
+              break;
+            default:
+              break;
+          }
+          this.shared.mensagemSucesso("Período validado")
+      }
+      
+    }
+
+    
+  }
+
 }

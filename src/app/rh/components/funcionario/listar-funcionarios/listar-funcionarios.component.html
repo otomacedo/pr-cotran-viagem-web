@@ -15,7 +15,6 @@
       <div class="col-sm-12">
         <label>Por:</label>
         <select class="form-control" formControlName="tipo">
-          <option>Selecione</option>
           <option *ngFor="let filtro of tipos" [(value)]="filtro.tipo">{{filtro.valor}}</option>       
         </select>
       </div>
@@ -33,14 +32,14 @@
     <br>
     <thead>
       <tr>
-        <th scope="col">Código</th>
+        <th scope="col-sm-1">Código</th>
         <th scope="col">Nome</th>
         <th scope="col">Nome Guerra</th>
         <th scope="col"></th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let funcionario of funcionarios | paginate: {itemsPerPage: 2, currentPage: p}">
+      <tr *ngFor="let funcionario of funcionarios | paginate: {itemsPerPage: 5, currentPage: p}">
         <td>{{funcionario.idFuncionario}}
         </td>
         <td>{{ funcionario.nome }}</td>
@@ -50,7 +49,10 @@
           <button class=" btn btn-outline-primary" (click)="gerenciarFuncionario(funcionario)">Gerenciar</button>
         </td>
       </tr>
-      <pagination-controls (pageChange)="p = $event"></pagination-controls>
+      <pagination-controls (pageChange)="p = $event"
+        previousLabel="Anterior"
+        nextLabel="Próximo"
+      ></pagination-controls>
     </tbody>
   </table>
 </div>
@@ -65,6 +67,6 @@
     <button class=" btn btn-outline-danger" (click)="listarFuncionariosInativos()">Funcionários
       Inativos</button>
     &nbsp; <button class=" btn btn-primary"  (click)="listarFuncionarios()">Funcionários Ativos</button>&nbsp;
-    <button class=" btn btn-primary" (click)="listarTercerizados()">Funcionários Tercerizados</button>
+    <button class=" btn btn-dark" (click)="listarTercerizados()">Funcionários Tercerizados</button>
   </div>
 

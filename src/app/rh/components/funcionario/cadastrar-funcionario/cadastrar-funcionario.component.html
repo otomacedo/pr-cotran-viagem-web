@@ -1,119 +1,154 @@
-
-<form   class="was-validate" [formGroup]="formFuncionario">
+<form class="was-validate" [formGroup]="formFuncionario">
   <div class="card">
     <div class="card-header">
-      Cadastrar Funcionário 
+      Cadastrar Funcionário
     </div>
-   <div class="form-row">
-     <div class="col-sm-6">
-        <div class="col-sm-12">
-            <label>Nome:</label>
-            <input  type="text" class="form-control" formControlName="nome" placeholder="Nome"  >
+    <div class="form-row">
+      <br>
+      <div class="col-sm-12"> <br></div>
+      <div class="col-sm-12">
+        <div class="form-row">
+        <div class="col-sm-3">  <div class="col-sm-12">
+          <div class="card" style="width: 10rem;">
+            <div class="card-body">
+              <img class="card-img-top" src="../../../../assets/perfil.jpg" alt="Imagem de capa do card">
+              <div class="col-sm-12">
+                <span type="file" class="btn btn-primary btn-sm"  name="imagem" >Enviar Foto</span>
+              </div>
+            </div>
+            
           </div>
+        </div>
+      </div>
+        <div class="col-sm-4">
           <div class="col-sm-12">
             <label>Nome de Guerra:</label>
-            <input type="text" class="form-control" formControlName="nomeGuerra" name="nomeGuerra" placeholder="Nome de Guerra">
+            <input type="text" class="form-control" formControlName="nomeGuerra" name="nomeGuerra"
+              placeholder="Nome de Guerra">
           </div>
-      <div class="col-sm-12">
-        <label>Endereço:</label>
-        <input type="text" class="form-control" formControlName="endereco" name="endereco" placeholder="">
-      </div>
-      <div class="col-sm-12">
-        <label>Cidade:</label>
-        <input type="text" class="form-control"formControlName="cidade" name="cidade" >
-      </div>
-      <div class="col-sm-12">
-        <label>Bairro:</label>
-        <input type="text" class="form-control" formControlName="bairro" name="bairro" >
-      </div>
-      <div class="col-sm-12">
-        <label>Data de Nascimento:</label>
-        <input type="date" class="form-control" formControlName="dtNascimento" name="dtNascimento" placeholder="00/00/0000">
-      </div>
-      <div class="col-sm-12">
-        <label>Ramal:</label>
-        <input type="text" class="form-control" formControlName="ramal" name="ramal" >
-      </div>
-      <div class="col-sm-12">
-        <label>Telefone:</label>
-        <input type="text" class="form-control" formControlName="telefone" name="telefone" placeholder="(00) 0000-0000">
-      </div>
-      <input type="hidden" class="form-control" formControlName="status" name="status">
+          <div class="col-sm-12">
+            <label>Endereço:</label>
+            <input type="text" class="form-control" formControlName="endereco" name="endereco" placeholder="">
+          </div>
+          <div class="col-sm-12">
+            <label>Cidade:</label>
+            <input type="text" class="form-control" formControlName="cidade" name="cidade">
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="col-sm-12">
+            <label>Bairro:</label>
+            <input type="text" class="form-control" formControlName="bairro" name="bairro">
+          </div>
+          <div class="col-sm-12">
+            <label>Data de Nascimento:</label>
+            <input type="date" class="form-control" formControlName="dtNascimento" name="dtNascimento"
+              placeholder="00/00/0000">
+          </div>
+          <div class="col-sm-12">
+            <label>Ramal:</label>
+            <input type="text" class="form-control" formControlName="ramal" name="ramal">
+          </div>
 
-     </div>
-     <!-- ##################################################################-->
-     
-
-     <div class="col-sm-6" >
+        </div>
+        </div>
+      </div>
+      <div class="col-sm-12"><br></div>
+      <div class="col-sm-4">
         <div class="col-sm-12">
-            <label>RG:</label>
-            <input type="text" class="form-control" formControlName="rg" name="rg" placeholder="">
-          </div>
-          <div class="col-sm-12">
-            <label>Órgão Expedidor RG:</label>
-            <input type="text" class="form-control" formControlName="orgaoExpedidorRg" name="orgaoExpedidorRg" placeholder="">
-          </div>
-          <div class="col-sm-12">
-            <label>Data de Expedição do RG:</label>
-            <input type="date" class="form-control" formControlName="dtExpedicaoRg" name="dtExpedicaoRg" placeholder="00/00/0000">
-          </div>
-          <div class="col-sm-12">
-            <label>CPF:</label>
-            <input type="text" class="form-control" formControlName="cpf" name="cpf" placeholder="000.000.000-00">
-          </div>
-          <div class="col-sm-12">
-            <label>CNH:</label>
-            <input type="text" class="form-control" formControlName="cnh" name="cnh" >
-          </div>
-          <div class="col-sm-12">
-            <label>Validade CNH:</label>
-            <input type="date" class="form-control" formControlName="validadeCnh" name="validadeCnh" placeholder="00/00/0000">
-          </div>
-          <div class="col-sm-12">
-            <label>Categoria da CNH:</label>
-            <input type="text" class="form-control" formControlName="categoriaCnh" name="categoriaCnh" placeholder="">
-          </div>
-   </div>
-        
-    <!--############################################################################-->
-    
-<div class="col-sm-6" >
+          <label>Nome:</label>
+          <input type="text" class="form-control" formControlName="nome" name="nome">
+        </div>
         <div class="col-sm-12">
-            <label>Número do Passaporte:</label>
-            <input type="text" class="form-control" formControlName="numPassaporte" name="numPassaporte" placeholder="">
-          </div>
-          <div class="col-sm-12">
-            <label>Validade do Passaporte:</label>
-            <input type="date" class="form-control" formControlName="validadePassaporte" name="validadePassaporte" placeholder="00/00/0000">
-          </div>
-          <div class="col-sm-12">
-            <label>Data de Expedição do Passaporte:</label>
-            <input type="date" class="form-control" formControlName="dtExpedicaoPassaporte" name="dtExpedicaoPassaporte" placeholder="00/00/0000">
-          </div>
-         
-</div>
-
-    <!--############################################################################-->
-    <div class="col-sm-6" >
+          <label>CNH:</label>
+          <input type="text" class="form-control" formControlName="cnh" name="cnh">
+        </div>
         <div class="col-sm-12">
-            <label>Inscrição Titulo:</label>
-            <input type="text" class="form-control" formControlName="inscricaoTitulo" name="inscricaoTitulo" placeholder="">
-          </div>
-          <div class="col-sm-12">
-            <label>Zona Título de Eleitor:</label>
-            <input type="text" class="form-control" formControlName="zonaTitulo" name="zonaTitulo" placeholder="">
-          </div>
-          <div class="col-sm-12">
-            <label>Seção Título:</label>
-            <input type="text" class="form-control" formControlName="secaoTitulo" name="secaoTitulo" placeholder="">
-          </div>
-         
-</div>
-</div>
-</div>
-<br>
-<button class=" btn btn-success" (click)="salvar()">Salvar</button>
-&nbsp;
-<button class=" btn btn-primary" (click)="voltar()">Voltar</button>
+          <label>Validade CNH:</label>
+          <input type="date" class="form-control" formControlName="validadeCnh" name="validadeCnh"
+            placeholder="00/00/0000">
+        </div>
+        <div class="col-sm-12">
+          <label>Categoria da CNH:</label>
+          <input type="text" class="form-control" formControlName="categoriaCnh" name="categoriaCnh" placeholder="">
+        </div>
 
-  </form>
+        <input type="hidden" class="form-control" formControlName="status" name="status">
+      </div>
+      <!-- ##################################################################-->
+
+
+      <div class="col-sm-4">
+        <div class="col-sm-12">
+          <label>RG:</label>
+          <input type="text" class="form-control" formControlName="rg" name="rg" placeholder="">
+        </div>
+        <div class="col-sm-12">
+          <label>Órgão Expedidor RG:</label>
+          <input type="text" class="form-control" formControlName="orgaoExpedidorRg" name="orgaoExpedidorRg"
+            placeholder="">
+        </div>
+        <div class="col-sm-12">
+          <label>Data de Expedição do RG:</label>
+          <input type="date" class="form-control" formControlName="dtExpedicaoRg" name="dtExpedicaoRg"
+            placeholder="00/00/0000">
+        </div>
+        <div class="col-sm-12">
+          <label>CPF:</label>
+          <input type="text" class="form-control" formControlName="cpf" name="cpf" placeholder="000.000.000-00">
+        </div>
+      </div>
+       <!--############################################################################-->
+      <div class="col-sm-4">
+        <div class="col-sm-12">
+          <label>Telefone:</label>
+          <input type="text" class="form-control" formControlName="telefone" name="telefone"
+            placeholder="(00) 0000-0000">
+        </div>
+        <div class="col-sm-12">
+          <label>Inscrição Titulo:</label>
+          <input type="text" class="form-control" formControlName="inscricaoTitulo" name="inscricaoTitulo"
+            placeholder="">
+        </div>
+        <div class="col-sm-12">
+          <label>Zona Título de Eleitor:</label>
+          <input type="text" class="form-control" formControlName="zonaTitulo" name="zonaTitulo" placeholder="">
+        </div>
+        <div class="col-sm-12">
+          <label>Seção Título:</label>
+          <input type="text" class="form-control" formControlName="secaoTitulo" name="secaoTitulo" placeholder="">
+        </div>
+
+      </div>
+      <!--############################################################################-->
+
+      <div class="col-sm-4">
+        <div class="col-sm-12">
+          <label>Número do Passaporte:</label>
+          <input type="text" class="form-control" formControlName="numPassaporte" name="numPassaporte" placeholder="">
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="col-sm-12">
+          <label>Validade do Passaporte:</label>
+          <input type="date" class="form-control" formControlName="validadePassaporte" name="validadePassaporte"
+            placeholder="00/00/0000">
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="col-sm-12">
+          <label>Data de Expedição do Passaporte:</label>
+          <input type="date" class="form-control" formControlName="dtExpedicaoPassaporte" name="dtExpedicaoPassaporte"
+            placeholder="00/00/0000">
+        </div>
+      </div>
+      <div class="col-sm-12"> <br></div>
+      <!--############################################################################-->
+    </div>
+  </div>
+  <br>
+  <button class=" btn btn-success" (click)="salvar()">Salvar</button>
+  &nbsp;
+  <button class=" btn btn-primary" (click)="voltar()">Voltar</button>
+
+</form>

@@ -18,22 +18,25 @@
         <div class="form-row">
             <div class="col-sm-3">
               <div class="col-12">
-                  <label for="example-date-input" class="col-6 col-form-label">Inicio:</label>
-                    <input class="form-control" formControlName="inicio" type="date" >
+                  <label  class="col-6 col-form-label">Inicio:</label>
+                    <input class="form-control"  formControlName="inicioUm" type="date" >
               </div>
             </div>
             <div class="col-sm-3">
               <div class="col-sm-12">
                 <label for="example-date-input" class="col-12 col-form-label">Qtd. de Dias:</label>
-                <input type="text" class="form-control" formControlName="qtdDias" name="quantidadedias">
+                <input type="text" class="form-control" formControlName="qtdDiasUm" name="quantidadedias">
               </div>
           </div>
             <div class=" col-sm-3,5">
                 <label for="example-date-input" class="col-6 col-form-label">Término:</label>
                 <div class="input-group col-sm-12">
-                    <input class="form-control" disabled formControlName="fim" type="date" >
+                    <input class="form-control" disabled formControlName="fimUm" type="date" >
                     <div class="input-group-append">
-                      <button class="{{marcacao}} btn btn-outline-success" (click)="salvarMarcacao()" type="button" id="button-addon2"><fa-icon [icon]="check"></fa-icon></button>
+                      <button class="{{marcacaoUm}} btn btn-outline-success" (click)="salvarMarcacao('Um')" type="button" id="button-addon2"><fa-icon [icon]="check"></fa-icon></button>
+                    </div>
+                    <div *ngIf="editButtonUm"  class="input-group-append">
+                      <button class=" btn btn-outline-primary" (click)="habilitarDesabilitar('Um','true')" type="button" id="button-addon2"><fa-icon [icon]="edit"></fa-icon></button>
                     </div>
                 </div>
             </div>
@@ -42,21 +45,24 @@
           <div class="col-sm-3">
             <div class="col-12">
                 <label for="example-date-input" class="col-6 col-form-label">Inicio:</label>
-                  <input class="form-control" formControlName="inicio" type="date" >
+                  <input class="form-control" formControlName="inicioDois" type="date" >
             </div>
           </div>
           <div class="col-sm-3">
             <div class="col-sm-12">
               <label for="example-date-input" class="col-12 col-form-label">Qtd. de Dias:</label>
-              <input type="text" class="form-control" formControlName="qtdDias" name="quantidadedias">
+              <input type="text" class="form-control" formControlName="qtdDiasDois" name="quantidadedias">
             </div>
         </div>
           <div class=" col-sm-3,5">
               <label for="example-date-input" class="col-6 col-form-label">Término:</label>
               <div class="input-group col-sm-12">
-                  <input class="form-control" disabled formControlName="fim" type="date" >
+                  <input class="form-control" disabled formControlName="fimDois" type="date" >
                   <div class="input-group-append">
-                    <button class="{{marcacao}} btn btn-outline-success" (click)="salvarMarcacao()" type="button" id="button-addon2"><fa-icon [icon]="check"></fa-icon></button>
+                    <button  class="{{marcacaoDois}} btn btn-outline-success" (click)="salvarMarcacao('Dois')" type="button" id="button-addon2"><fa-icon [icon]="check"></fa-icon></button>
+                  </div>
+                  <div *ngIf="editButtonDois"  class="input-group-append">
+                    <button class=" btn btn-outline-primary" (click)="habilitarDesabilitar('Dois','true')" type="button" id="button-addon2"><fa-icon [icon]="edit"></fa-icon></button>
                   </div>
               </div>
           </div>
@@ -65,28 +71,31 @@
         <div class="col-sm-3">
           <div class="col-12">
               <label for="example-date-input" class="col-6 col-form-label">Inicio:</label>
-                <input class="form-control" formControlName="inicio" type="date" >
+                <input class="form-control" formControlName="inicioTres" type="date" >
           </div>
         </div>
         <div class="col-sm-3">
           <div class="col-sm-12">
             <label for="example-date-input" class="col-12 col-form-label">Qtd. de Dias:</label>
-            <input type="text" class="form-control" formControlName="qtdDias" name="quantidadedias">
+            <input type="text" class="form-control" formControlName="qtdDiasTres" name="quantidadedias">
           </div>
       </div>
         <div class=" col-sm-3,5">
             <label for="example-date-input" class="col-6 col-form-label">Término:</label>
             <div class="input-group col-sm-12">
-                <input class="form-control" disabled formControlName="fim" type="date" >
+                <input class="form-control" disabled formControlName="fimTres" type="date" >
                 <div class="input-group-append">
-                  <button class="{{marcacao}} btn btn-outline-success" (click)="salvarMarcacao()" type="button" id="button-addon2"><fa-icon [icon]="check"></fa-icon></button>
+                  <button  class="{{marcacaoTres}} btn btn-outline-success" (click)="salvarMarcacao('Tres')" type="button" id="button-addon2"><fa-icon [icon]="check"></fa-icon></button>
+                </div>
+                <div *ngIf="editButtonTres" class="input-group-append">
+                  <button class=" btn btn-outline-primary" (click)="habilitarDesabilitar('Tres','true')"  type="button" id="button-addon2"><fa-icon [icon]="edit"></fa-icon></button>
                 </div>
             </div>
         </div>
     </div>
         <br>
         <div class="col-sm-4">
-            <button class="btn btn-success" >Marcar Férias</button>   
+            <button class="btn btn-success" (click)="salvarFerias()" >Marcar Férias</button>   
             &nbsp;
             <button class="btn btn-primary" (click)="voltar()">Voltar</button>
 

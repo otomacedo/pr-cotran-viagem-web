@@ -144,18 +144,31 @@
                 </div>
             </div>
             <div class="col-sm-12">
-                <div class="col-sm-6">
-                    <strong><label>Tercerizado:</label></strong>
-                    {{rh.tercerizado}}
+                <div class="col-sm-6" >
+                    <strong><label>Tercerizado: </label></strong>
+                    <span *ngIf="rh.tercerizado"> Sim</span>
+                    <span *ngIf="rh.tercerizado == false"> Não</span>
                 </div>
 
             </div>
         </div>
         </div>
         <br>
+        <div class="card">
+            <div class="col-sm-12">
+                    <strong><label>Observações: </label></strong>
+                    <br>
+                    {{rh.observacao}}
+                    
+            </div>
+            <br>
+        </div>
+        <br>
         <button class=" btn btn-success" (click)="editarRh()">Editar</button>
         &nbsp;
         <button class=" btn btn-primary" (click)="marcarFerias(rh)">Marcar Férias</button>
+        &nbsp;
+        <button class=" btn btn-primary" (click)="voltar()">Voltar</button>
         
     </form>
 </body>

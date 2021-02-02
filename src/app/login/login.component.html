@@ -7,21 +7,15 @@
             <div class="card-body">
               <h5 class="card-title text-center">Login</h5>
               <form >
-                <div class="form-label-group">
-                  <input type="email" id="inputEmail" class="form-control"   placeholder="Email" required autofocus>
-                  <label for="inputEmail">Email</label>
-                </div>
-  
-                <div class="form-label-group">
-                  <input type="password" id="inputPassword" class="form-control"   placeholder="Senha" required>
-                  <label for="inputPassword">Senha</label>
-                </div>
-  
-                <div class="custom-control custom-checkbox mb-3">
-                  <input type="checkbox" class="custom-control-input" id="customCheck1">
-                  <label class="custom-control-label" for="customCheck1">Lembrar Senha</label>
-                </div>
-                <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Entrar</button>
+                  <div class="form-group">
+                    <label>E-mail</label>
+                    <input class="form-control" type="email" name="email" id="email" required />
+                  </div>
+                  <div class="form-group">
+                    <label>Senha</label>
+                    <input class="form-control" type="password" name="password" id="password"  required />
+                  </div>
+                <button class="btn btn-lg btn-success btn-block text-uppercase" (click)="entrar()">Entrar</button>
                 <hr class="my-4">
                
               </form>

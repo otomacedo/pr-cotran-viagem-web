@@ -105,7 +105,8 @@ export class CadastrarFuncionarioComponent implements OnInit, OnDestroy {
       inscricaoTitulo: new FormControl('',Validators.required),
       zonaTitulo: new FormControl('',Validators.required),
       secaoTitulo: new FormControl('',Validators.required),
-      status: new FormControl(true)
+      status: new FormControl(true),
+      imagem: new FormControl()
 
     })
   }
@@ -135,6 +136,7 @@ export class CadastrarFuncionarioComponent implements OnInit, OnDestroy {
     this.formFuncionario.controls.zonaTitulo.setValue(funcionario.zonaTitulo);
     this.formFuncionario.controls.secaoTitulo.setValue(funcionario.secaoTitulo);
     this.formFuncionario.controls.status.setValue(funcionario.status);
+    this.formFuncionario.controls.imagem.setValue(funcionario.imagem);
   }
 
   funcionarioDTO(): Funcionario{
@@ -163,6 +165,7 @@ export class CadastrarFuncionarioComponent implements OnInit, OnDestroy {
     funcionarioDTO.endereco= this.formFuncionario.controls.endereco.value
     funcionarioDTO.inscricaoTitulo = this.formFuncionario.controls.inscricaoTitulo.value
     funcionarioDTO.status = this.formFuncionario.controls.status.value
+    funcionarioDTO.imagem= this.formFuncionario.controls.imagem.value
 
     return funcionarioDTO;   
   }

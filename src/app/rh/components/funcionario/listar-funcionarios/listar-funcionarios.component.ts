@@ -29,6 +29,9 @@ export class ListarFuncionariosComponent implements OnInit {
   ]
   constructor(private fb: FormBuilder,private service: RhService, private store: Store<rhState>, private router: Router) 
   {
+    {
+      this.formFiltro = this.createForm();
+      }
    
    }
 
