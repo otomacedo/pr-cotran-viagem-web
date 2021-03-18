@@ -28,7 +28,7 @@
 
 
   <br>
-  <table class="table table-striped">
+  <table class="table table-striped table-sm">
     <br>
     <thead>
       <tr>
@@ -45,8 +45,8 @@
         <td>{{ funcionario.nome }}</td>
         <td>{{ funcionario.nomeGuerra }}</td>
         <td>
-          <button class=" btn btn-primary" (click)="editarFuncionario(funcionario)">Editar</button>&nbsp;
-          <button class=" btn btn-outline-primary" (click)="gerenciarFuncionario(funcionario)">Gerenciar</button>
+          <button class=" btn btn-primary btn-sm" (click)="editarFuncionario(funcionario)"><fa-icon [icon]="edit"></fa-icon></button>&nbsp;
+          <button class=" btn btn-outline-primary btn-sm" (click)="gerenciarFuncionario(funcionario)"><fa-icon [icon]="conf"></fa-icon></button>
         </td>
       </tr>
       <pagination-controls (pageChange)="p = $event"

@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { Ferias } from 'src/app/rh/models/ferias.model';
 import { filtro } from 'src/app/rh/models/filtro.model';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
+import { faCogs, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-listar-funcionarios',
@@ -35,7 +36,9 @@ export class ListarFuncionariosComponent implements OnInit {
    
    }
 
-
+   edit = faEdit;
+   trash = faTrash;
+   conf = faCogs;
   funcionarios: Funcionario[];
   rhs: Rh[];
   p: number = 1;
@@ -47,7 +50,7 @@ export class ListarFuncionariosComponent implements OnInit {
   private createForm(){
     return this.fb.group({
       valor:new FormControl(''),
-      tipo: new FormControl('')
+      tipo: new FormControl('1')
     })
   }
   cadastrarFuncionario() {

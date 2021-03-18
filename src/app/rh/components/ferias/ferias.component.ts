@@ -9,7 +9,7 @@ import { Rh } from '../../models/rh.model';
 import { NgbDate, NgbCalendar, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { Ferias } from '../../models/ferias.model';
 import { Observable } from 'rxjs';
-import { faCheck, faEdit } from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faClock, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FeriasMarcadas } from '../../models/feriasMarcadas.model';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { share } from 'rxjs/operators';
@@ -27,10 +27,13 @@ export class FeriasComponent implements OnInit {
   @BlockUI() blockUI: NgBlockUI;
   check = faCheck;
   edit = faEdit;
+  trash = faTrash;
+  aguarde = faClock;
 
-  p1 : boolean;
-  p2 : boolean;
-  p3 : boolean;
+  quantidadeDias: number
+  p1: boolean;
+  p2: boolean;
+  p3: boolean;
 
   editButtonUm: boolean = false;
   editButtonDois: boolean = false;
@@ -40,231 +43,252 @@ export class FeriasComponent implements OnInit {
   saveButtonDois: boolean = false;
   saveButtonTres: boolean = false;
 
-  marcacaoUm :  String = "";
-  marcacaoDois : String = "";
-  marcacaoTres : String = "";
+  marcacaoUm: String = "";
+  marcacaoDois: String = "";
+  marcacaoTres: String = "";
   feriasMarcacao: FeriasMarcadas = new FeriasMarcadas()
   constructor(
     private router: Router,
     private store: Store<rhState>,
     private service: RhService,
     private fb: FormBuilder,
-    private shared: SharedService) 
-  {
-    this.formFerias= this.creatForm();
-   }
+    private shared: SharedService) {
+    this.formFerias = this.creatForm();
+  }
 
   ngOnInit(): void {
-    this.formFerias.controls['qtdDiasUm'].valueChanges.subscribe(v=>{
-      this.calcularDiasFerias("Um");
-    })
-
-    this.formFerias.controls['qtdDiasDois'].valueChanges.subscribe(v=>{
-      this.calcularDiasFerias("Dois");
-    })
-
-    this.formFerias.controls['qtdDiasTres'].valueChanges.subscribe(v=>{
-      this.calcularDiasFerias("Tres");
-    })
+    this.reactiveForm();
     this.consultarRh();
     this.qtdParcelas();
   }
 
-  salvarFerias(){
-    if(this.formFerias.valid){
-    this.rh.feriasMarcadas.push(this.feriasMarcacao);
-    return this.service.editarRh(this.rh).subscribe(data=>{
-    this.shared.mensagemSucesso("Férias marcadas com sucesso!");
-    this.consultarRh()
-    })
-  }else
-  this.shared.mensagemErro("Formulário contém erros!");
+  salvarFerias() {
+    let totalDiasPeriodos =
+      (+this.formFerias.controls['qtdDiasUm'].value) +
+      (+this.formFerias.controls['qtdDiasDois'].value) +
+      (+this.formFerias.controls['qtdDiasTres'].value)
+
+    if (totalDiasPeriodos > 30) {
+      this.shared.mensagemErro("Quantidade de dias não pode ultrapassar 30");
+    } else {
+      if (this.feriasMarcacao.ferias) {
+        this.rh.feriasMarcadas.push(this.feriasMarcacao);
+        return this.service.editarRh(this.rh).subscribe(data => {
+          this.shared.mensagemSucesso("Férias marcadas com sucesso!");
+          this.consultarRh()
+        })
+      } else
+        this.shared.mensagemErro("Marcação inválida!");
+    }
+
   }
-  creatForm(){
-    return this.fb.group ({
-      qtdDiasUm: new FormControl('', Validators.required),
-      inicioUm : new FormControl('', Validators.required),
+  creatForm() {
+    return this.fb.group({
+      qtdDiasUm: new FormControl(''),
+      inicioUm: new FormControl(''),
       fimUm: new FormControl(''),
-      qtdDiasDois: new FormControl('', Validators.required),
-      inicioDois : new FormControl('', Validators.required),
+      qtdDiasDois: new FormControl(''),
+      inicioDois: new FormControl(''),
       fimDois: new FormControl(''),
-      qtdDiasTres: new FormControl('', Validators.required),
-      inicioTres : new FormControl('', Validators.required),
+      qtdDiasTres: new FormControl(''),
+      inicioTres: new FormControl(''),
       fimTres: new FormControl(''),
-      
-      periodos: new FormControl('1')   
+
+      periodos: new FormControl('1')
     })
   }
 
-  preencheForm(ferias: Ferias): void{
+  preencheForm(ferias: Ferias): void {
     this.formFerias.controls.id.setValue(ferias.idFerias);
     this.formFerias.controls.inicio.setValue(this.shared.formatarData(ferias.inicio));
     this.formFerias.controls.fim.setValue(this.shared.formatarData(ferias.fim));
   }
 
-  feriasDTO (periodo){
-    let ferias: Ferias= new Ferias();
-    ferias.inicio= this.formFerias.controls['inicio'+periodo].value;
-    ferias.fim=this.formFerias.controls['fim'+periodo].value;
-
+  feriasDTO(periodo) {
+    let ferias: Ferias = new Ferias();
+    ferias.inicio = this.formFerias.controls['inicio' + periodo].value;
+    ferias.fim = this.formFerias.controls['fim' + periodo].value;
+    ferias.periodo = periodo;
     return ferias;
   }
 
-  editar(ferias: Ferias){
+  editar(ferias: Ferias) {
 
   }
-  excluirFerias(ferias: Ferias){
-    return this.service.excluirFerias(ferias).subscribe(data=>{
+  excluirFerias(ferias: Ferias) {
+    return this.service.excluirFerias(ferias).subscribe(data => {
       this.consultarRh()
       this.shared.mensagemSucesso(data["mensagem"]);
-     })
+    })
 
   }
 
-  private consultarRh(){
-    this.$rh.subscribe(rh=>{
-      this.service.consultarRh(rh.idRh).subscribe(rh=>{
+  private consultarRh() {
+    this.$rh.subscribe(rh => {
+      this.service.consultarRh(rh.idRh).subscribe(rh => {
         this.rh = rh;
       })
     })
   }
 
-  voltar(){
-    return this.router.navigate(['/','perfilFuncionario']);
+  voltar() {
+    return this.router.navigate(['/', 'perfilFuncionario']);
   }
-  calcularDiasFerias(periodo){
+  calcularDiasFerias(periodo) {
+
+    if (+this.formFerias.controls['qtdDias' + periodo].value > 30) {
+      this.shared.mensagemErro("Quantidade de dias não pode ultrapassar 30");
+      this.formFerias.controls['fim' + periodo].setValue('')
+    }
+    else {
       var d: Date = new Date(this.feriasDTO(periodo).inicio);
-      d.setDate(d.getDate() + (+this.formFerias.controls['qtdDias'+periodo].value + 1))
-      this.formFerias.controls['fim'+periodo].setValue(this.shared.formatarData(d))
+      d.setDate(d.getDate() + (+this.formFerias.controls['qtdDias' + periodo].value + 1))
+      this.formFerias.controls['fim' + periodo].setValue(this.shared.formatarData(d))
+    }
   }
 
-  salvarMarcacao(periodo){
-    this.blockUI.start("Aguarde")
+  salvarMarcacao(periodo) {
+    let totalDiasPeriodos =
+    (+this.formFerias.controls['qtdDiasUm'].value) +
+    (+this.formFerias.controls['qtdDiasDois'].value) +
+    (+this.formFerias.controls['qtdDiasTres'].value)
+
+  if (totalDiasPeriodos > 30) 
+    this.shared.mensagemErro("O total de dias nos períodos não pode ultrapassar 30");
+  else{
     let ferias = new Ferias();
-    ferias.fim = this.formFerias.controls['fim'+periodo].value;
-    ferias.inicio = this.formFerias.controls['inicio'+periodo].value;
-    if(this.feriasMarcacao.ferias === undefined)
+    ferias.fim = this.formFerias.controls['fim' + periodo].value;
+    ferias.inicio = this.formFerias.controls['inicio' + periodo].value;
+    ferias.periodo = periodo;
+    if (this.feriasMarcacao.ferias === undefined)
       this.feriasMarcacao.ferias = new Array();
-    
-    if(periodo === 'Dois'){
-      if(this.feriasMarcacao.ferias.length == 2){
-        let f = this.feriasMarcacao.ferias[1];
-        this.feriasMarcacao.ferias.splice(1,1);
-        this.feriasMarcacao.ferias .push(ferias);
-        this.feriasMarcacao.ferias .push(f);
-      }else{
-        this.feriasMarcacao.ferias .push(ferias);
-      }
-    }else{
-      this.feriasMarcacao.ferias .push(ferias);
+
+    if (this.formFerias.controls['inicio' + periodo].value == '')
+      this.shared.mensagemErro("Início Obrigatório!")
+    else if (this.formFerias.controls['qtdDias' + periodo].value == '')
+      this.shared.mensagemErro("Período Obrigatório!")
+    else if (+this.formFerias.controls['qtdDias' + periodo].value > 30)
+      this.shared.mensagemErro("Quantidade de dias não pode ultrapassar 30!")
+    else{
+      this.feriasMarcacao.dataDeMarcacao = new Date();
+      this.feriasMarcacao.ferias.push(ferias);
+      this.habilitarDesabilitar(periodo, false)
     }
-    this.habilitarDesabilitar(periodo,false)
-    setTimeout(_=>{
-      this.blockUI.stop();},300)
+  } 
   }
 
-  qtdParcelas(){
-      this.formFerias.controls.periodos.valueChanges.subscribe(
-        v=>{
-          if(v==2){
-            this.p2=true;
-            this.p3= false;
-          }
-          if(v==3){
-            this.p2= true;
-            this.p3= true;
-          }
-          if(v==1){
-            this.p2=false;
-            this.p3=false;
-          }
+  qtdParcelas() {
+    this.formFerias.controls.periodos.valueChanges.subscribe(
+      v => {
+        if (v == 2) {
+          this.p2 = true;
+          this.p3 = false;
         }
-      )
+        if (v == 3) {
+          this.p2 = true;
+          this.p3 = true;
+        }
+        if (v == 1) {
+          this.p2 = false;
+          this.p3 = false;
+        }
+      }
+    )
   }
 
-  public habilitarDesabilitar(periodo,editar){
-    if(editar){
-      this.formFerias.controls['inicio'+periodo].enable();
-      this.formFerias.controls['qtdDias'+periodo].enable();
-
-      if(periodo == "Um"){
-        this.marcacaoUm = '';
-        this.feriasMarcacao.ferias.splice(0,1);
-        console.log(this.feriasMarcacao.ferias)
+  public habilitarDesabilitar(periodo, editar) {
+    if (editar) {
+      this.formFerias.controls['inicio' + periodo].enable();
+      this.formFerias.controls['qtdDias' + periodo].enable();
+      this.feriasMarcacao.ferias.filter(f => {
+        let index = this.feriasMarcacao.ferias.indexOf(f);
+        if (f.periodo == periodo)
+          this.feriasMarcacao.ferias.splice(index, 1);
+      });
+      switch (periodo) {
+        case 'Um':
+          this.editButtonUm = false
+          break;
+        case 'Dois':
+          this.editButtonDois = false
+          break;
+        case 'Tres':
+          this.editButtonTres = false
+          break;
+        default:
+          break;
       }
-
-      if (periodo == "Dois"){
-        this.marcacaoDois = '';
-        this.feriasMarcacao.ferias.splice(1,1);
-        console.log(this.feriasMarcacao.ferias)
-      }
-
-
-      if (periodo == "Tres"){
-        this.marcacaoTres = '';
-        this.feriasMarcacao.ferias.splice(2,1);
-        console.log(this.feriasMarcacao.ferias)
-      }
-         
-
-          switch (periodo) {
-            case 'Um':
-              this.editButtonUm = false
-              break;
-            case 'Dois':
-              this.editButtonDois = false
-              break;
-            case 'Tres':
-              this.editButtonTres = false
-              break;
-            default:
-              break;
-          }
-
-    }else{
-      if(this.formFerias.controls['inicio'+periodo].value == '')
+      console.log(this.feriasMarcacao.ferias)
+    } else {
+      if (this.formFerias.controls['inicio' + periodo].value == '')
         this.shared.mensagemErro("Início Obrigatório!")
-      else if(this.formFerias.controls['qtdDias'+periodo].value == '')
+      else if (this.formFerias.controls['qtdDias' + periodo].value == '')
         this.shared.mensagemErro("Período Obrigatório!")
-      else{
-        this.formFerias.controls['inicio'+periodo].disable();
-        this.formFerias.controls['qtdDias'+periodo].disable();
-  
-        if(periodo == "Um"){
+      else {
+        this.formFerias.controls['inicio' + periodo].disable();
+        this.formFerias.controls['qtdDias' + periodo].disable();
+
+        if (periodo == "Um") {
           this.marcacaoUm = 'active';
-          console.log(this.feriasMarcacao.ferias)
         }
-        
-        if (periodo =="Dois"){
+        if (periodo == "Dois") {
           this.marcacaoDois = 'active';
-          console.log(this.feriasMarcacao.ferias)
         }
-          
-        if (periodo == "Tres"){
+
+        if (periodo == "Tres") {
           this.marcacaoTres = 'active';
-          console.log(this.feriasMarcacao.ferias)
         }
-        
-  
-          switch (periodo) {
-            case 'Um':
-              this.editButtonUm = true
-              break;
-            case 'Dois':
-              this.editButtonDois = true
-              break;
-            case 'Tres':
-              this.editButtonTres = true
-              break;
-            default:
-              break;
-          }
-          this.shared.mensagemSucesso("Período validado")
+        switch (periodo) {
+          case 'Um':
+            this.editButtonUm = true
+            break;
+          case 'Dois':
+            this.editButtonDois = true
+            break;
+          case 'Tres':
+            this.editButtonTres = true
+            break;
+          default:
+            break;
+        }
+        this.shared.mensagemSucesso("Período validado")
       }
-      
     }
 
-    
+  }
+  private reactiveForm() {
+    this.formFerias.controls['qtdDiasUm'].valueChanges.subscribe(v => {
+      this.calcularDiasFerias("Um");
+    })
+
+    this.formFerias.controls['qtdDiasDois'].valueChanges.subscribe(v => {
+      this.calcularDiasFerias("Dois");
+    })
+
+    this.formFerias.controls['qtdDiasTres'].valueChanges.subscribe(v => {
+      this.calcularDiasFerias("Tres");
+    })
+
+    this.formFerias.controls['inicioUm'].valueChanges.subscribe(i => {
+      if (!i)
+        this.formFerias.controls['qtdDiasUm'].disable()
+      else
+        this.formFerias.controls['qtdDiasUm'].enable()
+    })
+
+    this.formFerias.controls['inicioDois'].valueChanges.subscribe(i => {
+      if (!i)
+        this.formFerias.controls['qtdDiasDois'].disable()
+      else
+        this.formFerias.controls['qtdDiasDois'].enable()
+    })
+
+    this.formFerias.controls['inicioTres'].valueChanges.subscribe(i => {
+      if (!i)
+        this.formFerias.controls['qtdDiasTres'].disable()
+      else
+        this.formFerias.controls['qtdDiasTres'].enable()
+    })
   }
 
 }

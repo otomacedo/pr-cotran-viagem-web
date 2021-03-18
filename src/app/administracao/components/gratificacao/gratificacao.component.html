@@ -12,12 +12,12 @@
           <br>
           <button class=" btn btn-success" (click)="salvarGratificacao()">Salvar</button>
           &nbsp;
-          <button class="btn btn-primary" (click)="voltar()">Voltar</button>
+          <button class="btn btn-primary " (click)="voltar()">Voltar</button>
         </div>
       </div>
     </div>
     <br>
-    <table class="table table-striped">
+    <table class="table table-striped table-sm">
       <thead>
         <tr>
           <th scope="col">Código</th>
@@ -31,7 +31,7 @@
           </td>
           <td>{{ gratificacao.descricao}}</td>
           <td>
-            <button class=" btn btn-danger" (click)="excluirGratificacao(gratificacao)">Excluir</button>&nbsp;
+            <button class=" btn btn-danger btn-sm" (click)="excluirGratificacao(gratificacao)">Excluir</button>&nbsp;
           </td>
         </tr>
         <pagination-controls (pageChange)="p = $event"></pagination-controls>
