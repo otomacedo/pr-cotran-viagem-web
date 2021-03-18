@@ -115,12 +115,22 @@ export class FeriasComponent implements OnInit {
   editar(ferias: Ferias) {
 
   }
-  excluirFerias(ferias: Ferias) {
-    return this.service.excluirFerias(ferias).subscribe(data => {
-      this.consultarRh()
-      this.shared.mensagemSucesso(data["mensagem"]);
-    })
-
+  excluirFerias(feriasMarcadas:FeriasMarcadas) {
+    let c = confirm("Tem certeza que deseja excluir a marcação?");
+    if(c){
+      this.rh.feriasMarcadas.forEach(f=>{
+        if(f.idFeriasMarcadas == feriasMarcadas.idFeriasMarcadas){
+          let index =  this.rh.feriasMarcadas.indexOf(f)
+          this.rh.feriasMarcadas.splice(index,1)
+        }
+  
+  
+      });
+      return this.service.editarRh(this.rh).subscribe(data => {
+        this.consultarRh();
+        this.shared.mensagemSucesso("Marcação excluída com sucesso!");
+      })
+    }
   }
 
   private consultarRh() {
